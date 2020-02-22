@@ -25,17 +25,6 @@ use App\Model\Job;
 
 class JobController extends Controller
 {
-    public function validateForm(Request $request)
-    {
-        // rules to validate form
-        $rules = ['jobtitle' => 'required|string| Between:1,20|regex:/(^[A-Za-z0-9 ]+$)+/',
-            'company' => 'Required | Between:1,20|regex:/(^[A-Za-z0-9 ]+$)+/',
-            'startdate' => 'Required|numeric',
-            'enddate' => 'Required|numeric'
-        ];
-        // call framework validation
-        $this->validate($request, $rules);
-    }
     /*
      * display edited user method to display the Education after it hase been edited
      */
@@ -95,7 +84,6 @@ class JobController extends Controller
     public function editJob(Request $request)
     {
         try{
-            $this->validateForm($request);
             // Grab skill form data
             $jobtitle = $request->input('jobtitle');
             $company = $request->input('company');
@@ -137,8 +125,6 @@ class JobController extends Controller
                     'jobs' => $job
                 ]);
             }
-        } catch(ValidationException $e1){
-            throw $e1;
         } catch(PDOException $e)
         {
             

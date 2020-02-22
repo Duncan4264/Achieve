@@ -18,25 +18,12 @@ use App\Services\Utility\DatabaseException;
 use App\Services\Buisness\ProfileService;
 use App\Model\Education;
 use App\Services\Buisness\EducationService;
-use App\Services\Buisness\SkillService;
-use App\Services\Buisness\JobService;
 
 class EducationController extends Controller
 {
     /*
      * display edited user method to display the Education after it hase been edited
      */
-    public function validateForm(Request $request)
-    {
-        // rules to validate form
-        $rules = ['degreename' => 'required|string|max:20|regex:/(^[A-Za-z0-9 ]+$)+/',
-            'university' => 'Required | Between:1,20',
-            'startdate' => 'Required|numeric',
-            'enddate' => 'Required|numeric'
-        ];
-        // call framework validation
-        $this->validate($request, $rules);
-    }
     public function displayEditEducation(Request $request)
     {
         try{
@@ -62,7 +49,6 @@ class EducationController extends Controller
     public function EditEducation(Request $request)
     {
         try{
-            $this->validateForm($request);
             // Grab Edit Educaton form data
             $degreeName = $request->input('degreename');
             $university = $request->input('university');
@@ -83,14 +69,6 @@ class EducationController extends Controller
             // Grab the profile for display
             $profileService = new ProfileService();
             $profile = $profileService->myProfile($id);
-            
-            //Grab the skill for display
-            $skillService = new SkillService();
-            $skill = $skillService->mySkills($id);
-            
-            // Grab the job for display
-            $jobService = new JobService();
-            $job = $jobService->myJobs($id);
             // if result is successful
             if($result)
             {
@@ -98,13 +76,9 @@ class EducationController extends Controller
                 return view("profile")->with([
                     'id' => $id,
                     'profile' => $profile,
-                    'education' => $education,
-                    'skill' => $skill,
-                    'jobs' => $job
+                    'education' => $education
                 ]);
             }
-        } catch(ValidationException $e1){
-            throw $e1;
         } catch(PDOException $e)
         {
             

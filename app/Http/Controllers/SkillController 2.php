@@ -20,69 +20,32 @@ use App\Services\Buisness\ProfileService;
 use App\Model\Skill;
 use App\Services\Buisness\SkillService;
 use App\Services\Buisness\JobService;
-use App\Services\Data\JobDAO;
-use App\Model\Job;
 
-class JobController extends Controller
+class SkillController extends Controller
 {
-    public function validateForm(Request $request)
-    {
-        // rules to validate form
-        $rules = ['jobtitle' => 'required|string| Between:1,20|regex:/(^[A-Za-z0-9 ]+$)+/',
-            'company' => 'Required | Between:1,20|regex:/(^[A-Za-z0-9 ]+$)+/',
-            'startdate' => 'Required|numeric',
-            'enddate' => 'Required|numeric'
-        ];
-        // call framework validation
-        $this->validate($request, $rules);
-    }
     /*
-     * display edited user method to display the Education after it hase been edited
+     * display edited user method to display the Skill  after it hase been edited
      */
-    public function displayJob(Request $request)
+    public function displaySkill(Request $request)
     {
         try{
             // Grab id session
             $id = Session::get('ID');
-            // create a new Job service passing through the id
-            $jobService = new JobService($id);
-            $jobs = $jobService->myJobs($id);
-            
-            // grab prior skills
-            $service = new SkillService($id);
+            // create a new Skill service passing through the id
+            $service = new SkillService();
+            // grab prior Skils from buisness service
             $skills = $service->mySkills($id);
-            // grab prior Education from buisness service
-            $educationService = new EducationService($id);
-            
+            // grab education information
+            $educationService = new EducationService();
             $education = $educationService->myEducation($id);
-            
-            // return the editEducation view with id and profile data
-            return view("editeducation")->with([
+            //grab skill information
+            $jobService = new JobService();
+            $job = $jobService->myJobs($id);
+            // return the profile view with id 
+            return view("profile")->with([
                 'id' => $id,
                 'educate' => $education,
                 'skills' => $skills,
-                'jobs' => $jobs
-            ]);
-        } catch(ValidationException $e1){
-            throw $e1;
-        } catch(\Exception $e2)
-        {
-            return view('systemException');
-        }
-    }
-    public function displayEditJob(Request $request)
-    {
-        try{
-            // Grab id session
-            $id = Session::get('ID');
-            // create a new Job service passing through the id
-            $jobService = new JobService($id);
-            // grab prior Jobs from buisness service
-            $job = $jobService->myJobs($id);
-            
-            // return the editJob view with id and profile data
-            return view("editjob")->with([
-                'id' => $id,
                 'jobs' => $job
             ]);
         } catch(ValidationException $e1){
@@ -92,53 +55,72 @@ class JobController extends Controller
             return view('systemException');
         }
     }
-    public function editJob(Request $request)
+    public function displayEditSkill(Request $request)
     {
         try{
-            $this->validateForm($request);
-            // Grab skill form data
-            $jobtitle = $request->input('jobtitle');
-            $company = $request->input('company');
-            $startDate = $request->input('startdate');
-            $endDate = $request->input('enddate');
-            // Create a new skills object
-            $j = new Job($jobtitle, $company, $startDate, $endDate);
             // Grab id session
             $id = Session::get('ID');
-            // create a new  job service
-            $jobService = new JobService();
+            // create a new Skill service passing through the id
+            $service = new SkillService($id);
+            // grab prior Skill from buisness service
+            $skill = $service->mySkills($id);
             
+            // return the editEducation view with id and profile data
+            return view("editskill")->with([
+                'id' => $id,
+                'skill' => $skill
+            ]);
+        } catch(ValidationException $e1){
+            throw $e1;
+        } catch(\Exception $e2)
+        {
+            return view('systemException');
+        }
+    }
+    public function editSkill(Request $request)
+    {
+        try{
+            // Grab skill form data
+            $skill1 = $request->input('skill1');
+            $skill2 = $request->input('skill2');
+            $skill3 = $request->input('skill3');
+            $skill4  = $request->input('skill4');
+            $skill5  = $request->input('skill5');
+            // Create a new skills object
+            $s = new Skill($skill1, $skill2, $skill3, $skill4, $skill5);
+            // Grab id session
+            $id = Session::get('ID');
+            // create a new Skill service
+            $profileService = new SkillService();
             
-          
-            // Update the jobs with the new job object
-            $result = $jobService->updateSkills($id, $j);
-            // grab job infromation
-            $job = $jobService->myJobs($id);
+            // update skills
+            $result = $profileService->updateSkills($id, $s);
             
+            // grab skills
+            $skill = $profileService->mySkills($id);
             
-            // Grab the skills
-            $skillsService = new SkillService();
-            $skill = $skillsService->mySkills($id);
+  
             //grab the education profile
             $service = new EducationService();
             $education = $service->myEducation($id);
             // Grab the profile for display
             $profileService = new ProfileService();
             $profile = $profileService->myProfile($id);
+            // Grab the job for display
+            $jobService = new JobService();
+            $job = $jobService->updateSkills($id, $j);
             // if result is successful
             if($result)
             {
-                // return the profile veiw with id, profile data, education, skills and jobs
+                // return the profile veiw with id and profile data
                 return view("profile")->with([
                     'id' => $id,
                     'profile' => $profile,
                     'education' => $education,
                     'skill' => $skill,
-                    'jobs' => $job
+                    'job' => $job
                 ]);
             }
-        } catch(ValidationException $e1){
-            throw $e1;
         } catch(PDOException $e)
         {
             
