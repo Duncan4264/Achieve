@@ -1,5 +1,5 @@
 @extends('layout.achieveMaster')
-@section('title', 'Edit Skill Page')
+@section('title', 'Create Group Page')
 
 @section('content')
 <?php 
@@ -8,10 +8,9 @@
 // This is my own work
 ?>
 @if(Session::has('users'))
-<form action = "processSkill" method="post">
+<form action = "processCreateGroup" method="POST">
 <input type="hidden" name = "_token" value = "<?php echo csrf_token()?>" />
-<input type="hidden" name="id" value="{{$skill->getId()}}">
-<h2>Edit Skill</h2>
+<h2>Create Group</h2>
 @if($errors->count() != 0)
 <h1>List of Errors</h1>
 @foreach($errors->all() as $message)
@@ -20,12 +19,16 @@
 @endif
 <table>
 <tr>
-  <td>Skill name: </td>
-  <td><input type = "text" name = "skill" value="{{$skill->getSkill()}}" maxlength=20/></td>
+  <td>Group Name: </td>
+  <td><input type = "text" name = "GroupName" value="" maxlength=20/></td>
   </tr>
  <tr>
+ 	<td>Group Description: </td>
+ 	<td><input type = "text" name = "GroupDescription" value="" maxlength=50/></td>
+ </tr>
+ <tr>
     <td colspan = "2" align = "center">
-        <input type = "submit" value = "Edit Profile" /> 
+        <input type = "submit" value = "Create Group" /> 
         </td>
  </tr>
 </table>

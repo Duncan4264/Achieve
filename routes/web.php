@@ -33,14 +33,36 @@ Route::get('/login', function () {
         Route::get('/createprofile', function() {
                 return view('createprofile');
             });
+        // Goes to the form to create Job Posting
+        Route::get('/createRecruitment', function()
+        {
+            return view('createrecruitment');
+        });
         // Goes to the admin view
         Route::get('/admin', "AdminController@grabAllProfiles");
         
-        Route::get('/editeducation', "EducationController@displayEditEducation");
+        Route::get('/editeducation', "EducationController@displayeditEducation");
         
-        Route::get('/editskill', "SkillController@displayeditSkill");
+        Route::post('/editskill', "SkillController@displayeditSkill");
         
-        Route::get('/editjob', "JobController@displayeditjob");
+        Route::post('/editjob', "JobController@displayEditJob");
+ 
+        Route::get('/jobadmin', "AdminController@grabAllJobs");
+        
+        Route::get('/createeducation', function () {
+           return view('createeducation'); 
+        });
+       Route::get('/createjob', function () {
+                return view('createjob');
+        });
+       Route::get('/createskill', function () {
+               return view('createskill');
+         });
+           Route::get('/createGroup', function() {
+               return view('createGroup');
+           });
+       Route::get('/groups', "GroupController@displayGroup");
+                 
 
 // Route to the profile controller after creating a new profile
 Route::post('/processOrigination', "ProfileController@onOrigination");
@@ -65,17 +87,45 @@ Route::post('/processDelete', "AdminController@deleteProfile");
 Route::post('/processSuspend', "AdminController@suspendProfile");
 // Routes to the admin controller unsuspend method after submitting the admin request
 Route::post('/confirmUnsuspend', "AdminController@confirmUnsuspend");
+// Routes to the admin controller to process unsuspend
 Route::post('/processUnsuspend', "AdminController@unSuspendProfile");
-
+// Routes to the education controller to process education
 Route::post('/processEducation', "EducationController@editEducation");
-
+// Routes to the skill controller to process edit skill
 Route::post('/processSkill', "SkillController@editSkill");
+// Routes to the job controller to porcess  the edit job
 Route::post('/processJob', "JobController@editJob");
+//Routes to the creat job form
+Route::post('/processRecuitment', "AdminController@createJob");
+// Routes to process Recruitment deletion
+Route::post('/processDeleteRecruitment', "AdminController@deleteJob");
+// Routes to confrim Recruitment deletion
+Route::post('/confirmDeleteRecuritment', "AdminController@confirmDeleteJob");
+// Routes to display edit form
+Route::post('/displayEditRecuritment', "AdminController@displayEditRecuritment");
+// Routes to process edit recruitment
+Route::post('/processEditRecruitment', "AdminController@editRecruitment");
+// Education controller create education
+Route::post('/createEducation', "EducationController@createEducation");
+// create Job
+Route::post('/createJob', "JobController@createJob");
+// create Skill
+Route::post('/processCreateSkill', "SkillController@addSkill");
+// Group Controller to create a group
+Route::post('/processCreateGroup', "GroupController@createGroup");
+// Group Controller to confirm delete
+Route::post('/confirmgroupdelete', "GroupController@confirmDeleteGroup");
 
+// Group Controller to delete group
+Route::post('/deletegroup', "GroupController@deleteGroup");
+// Group Controller to display edit group
+Route::post('/displayeditgroup', "GroupController@displayeditGroup");
+// Group Controller to edit groups
+Route::post('/editGroup', "GroupController@editGroup");
 
-
-
-
+// Routes to logouts
 Route::get('/logout', "LoginController@logout");
+
+
 
 

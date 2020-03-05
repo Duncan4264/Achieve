@@ -7,6 +7,7 @@
 // CST - 256
 // This is my own work
 ?>
+@if(Session::has('users'))
 <form action = "processEditRecruitment" method="post">
 <input type="hidden" name = "_token" value = "<?php echo csrf_token()?>" />
 <h2>Edit Job</h2>
@@ -46,4 +47,5 @@
  </tr>
 </table>
 </form>
+@endif
 @endsection

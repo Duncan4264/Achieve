@@ -3,6 +3,7 @@ namespace App\Services\Buisness;
 use PDO;
 use App\Model\Recuitment;
 use App\Services\Data\RecuitmentDAO;
+use App\Services\Utility\AchieveLogger;
 
 class RecruitmentService
 {
@@ -11,6 +12,7 @@ class RecruitmentService
      */
     public function getAllJobs($id)
     {
+        AchieveLogger::info("Entering RecruitmentService.getAllJobs()");
         // create a new database connection
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
@@ -21,9 +23,10 @@ class RecruitmentService
         $db  = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
         // PDO set attribute for error exceptions
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        // Create a new profile data access layer
+        // Create a new recruitment data access object
         $job = new RecuitmentDAO($db);
         $profiles = $job->findAllJobs($id);
+        AchieveLogger::info("Exiting RecruitmentService.getAllJobs()");
         return $profiles;
         
     }
@@ -32,6 +35,7 @@ class RecruitmentService
      */
     public function createJob(Recuitment $r)
     {
+        AchieveLogger::info("Entering RecruitmentService.createJob()");
         // create a new database connection
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
@@ -42,9 +46,10 @@ class RecruitmentService
         $db  = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
         // PDO set attribute for error exceptions
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        // Create a new profile data access layer
+        // Create a new recruitment data access object
         $job = new RecuitmentDAO($db);
         $profiles = $job->create($r);
+        AchieveLogger::info("Exiting RecruitmentService.createJob()");
         return $profiles;
         
     }
@@ -53,6 +58,7 @@ class RecruitmentService
      */
     public function deleteJob($id)
     {
+        AchieveLogger::info("Entering RecruitmentService.deleteJob()");
         // create a new database connection
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
@@ -63,9 +69,10 @@ class RecruitmentService
         $db  = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
         // PDO set attribute for error exceptions
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        // Create a new profile data access layer
+        // Create a new recruitment data access object
         $profile = new RecuitmentDAO($db);
         $profiles = $profile->DeleteJob($id);
+        AchieveLogger::info("Exiting RecruitmentService.deleteJob()");
         return $profiles;
     }
     /*
@@ -73,6 +80,7 @@ class RecruitmentService
      */
     public function findJob($id)
     {
+        AchieveLogger::info("Entering RecruitmentService.findJob()");
         // create a new database connection
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
@@ -83,9 +91,10 @@ class RecruitmentService
         $db  = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
         // PDO set attribute for error exceptions
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        // Create a new profile data access layer
+        // Create a new recruitment data access object
         $profile = new RecuitmentDAO($db);
         $profiles = $profile->findJob($id);
+        AchieveLogger::info("Exiting RecruitmentService.findJob()");
         return $profiles;
     }
     /*
@@ -93,6 +102,7 @@ class RecruitmentService
      */
     public function editJob(Recuitment $job)
     {
+        AchieveLogger::info("Entering RecruitmentService.editJob()");
         // Connect to the database
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
@@ -102,16 +112,17 @@ class RecruitmentService
         // Make a new PDO connection
         $db  = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        // Create a new profile Data acess object
+        // Create a new recruitment Data acess object
         $service = new RecuitmentDAO($db);
         
         
-        // Call the data acess object to method to edit a profile
+        // Call the data acess object to method to edit a job posting
         $flag = $service->updatejob($job);
         
         // Close connection
         $db = null;
         
+        AchieveLogger::info("Exiting RecruitmentService.editJob()");
         // Return data acess object information
         return $flag;
         

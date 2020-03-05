@@ -1,5 +1,5 @@
 @extends('layout.achieveMaster')
-@section('title', 'Create Job Post Page')
+@section('title', 'Create Job Page')
 
 @section('content')
 <?php 
@@ -8,9 +8,9 @@
 // This is my own work
 ?>
 @if(Session::has('users'))
-<form action = "processRecuitment" method="post">
+<form action = "createJob" method="post">
 <input type="hidden" name = "_token" value = "<?php echo csrf_token()?>" />
-<h2>Create Job Posting</h2>
+<h2>Create Job History</h2>
 @if($errors->count() != 0)
 <h1>List of Errors</h1>
 @foreach($errors->all() as $message)
@@ -27,20 +27,16 @@
  	<td><input type = "text" name = "company" value="" maxlength=20/></td>
  </tr>
  <tr>
-  <td>Description: </td>
-  <td><input type = "text" name = "description"  value="" maxlength=20/></td>
+  <td>Start Date: </td>
+  <td><input type = "text" name = "startdate"  value="" maxlength=20/></td>
   </tr>
  <tr>
- 	<td>Salary: </td>
- 	<td><input type = "text" name = "salary" value=""  maxlength=20/></td>
- </tr>
-  <tr>
- 	<td>Requirements: </td>
- 	<td><input type = "text" name = "requirements" value=""  maxlength=20/></td>
+ 	<td>End Date: </td>
+ 	<td><input type = "text" name = "enddate" value=""  maxlength=20/></td>
  </tr>
  <tr>
     <td colspan = "2" align = "center">
-        <input type = "submit" value = "Create Job Posting" /> 
+        <input type = "submit" value = "Edit Job" /> 
         </td>
  </tr>
 </table>

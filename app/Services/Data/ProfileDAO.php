@@ -7,7 +7,7 @@ use App\Model\Profile;
 use PDO;
 use PDOException;
 use Illuminate\Contracts\Logging\Log;
-use Illuminate\Support\Facades\Auth;
+use App\Services\Utility\AchieveLogger;
 use App\Services\Utility\DatabaseException;
 
 class ProfileDAO
@@ -27,6 +27,7 @@ class ProfileDAO
     public function createProfile(Profile $p, $uid)
     {
         try{
+            AchieveLogger::info("Entering ProfileDAO.createProfile()");
         // Grab variables from the profile model
         $firstname = $p->getFirstname();
         $lastname = $p->getLastname();
@@ -36,7 +37,6 @@ class ProfileDAO
         $street = $p->getStreet();
         $zip = $p->getZip();
         $status = 0;
-//       try {
                 // PDO statement to insert the user into the Profile table
                 $stmt = $this->db->prepare('INSERT INTO `Profiles` (`id`, `firstname`, `lastname`, `country`, `state`, `city`, `street`, `zip`, `status`, `Users_id`) VALUES
                 (NULL, :firstname, :lastname, :country, :state, :city, :street, :zip, :status, :uid)');
@@ -51,6 +51,7 @@ class ProfileDAO
                 $stmt->bindParam(':status', $status);
                 $stmt->bindParam(':uid', $uid);
                 $stmt->execute();
+                AchieveLogger::info("Exiting ProfileDAO.createProfile()");
                 // return true
                 return true;
                 
@@ -61,7 +62,7 @@ class ProfileDAO
             {
                 
                // Log the pdo exception
-                Log::error("Exception: ", array("message" => $e->getMessage()));
+                AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
                 //          // Log the database exception
                 throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
                 // return false;
@@ -74,6 +75,7 @@ class ProfileDAO
         public function findProfile($id)
         {
             try {
+                AchieveLogger::info("Entering ProfileDAO.findProfile()");
             // Use PDO Statement to grab profile from database
             $stmt = $this->db->prepare("SELECT `id`, `firstname`, `lastname`, `country`, `state`, `city`, `street`, `zip`, `status`, `Users_id` FROM `Profiles` WHERE `Users_id` = :userid");
             // Bind the parameter
@@ -88,6 +90,7 @@ class ProfileDAO
                 // Pass it in a data array and make a new profile object
                 $profile= new Profile($data['firstname'], $data['lastname'], $data['country'], $data['state'], $data['city'], $data['street'], $data['zip'], $data['status']);
                 // return the new profile object
+                AchieveLogger::info("Exiting ProfileDAO.findProfile()");
                 return $profile;
                 
               
@@ -101,10 +104,10 @@ class ProfileDAO
             {
                 
                 // Log the pdo exception
-                Log::error("Exception: ", array("message" => $e->getMessage()));
+                AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
                 //          // Log the database exception
                 throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
-                // return false;
+                return false;
                 return false;
             }
         }
@@ -114,8 +117,9 @@ class ProfileDAO
         public function findStatus($id)
         {
             try {
+                AchieveLogger::info("Entering ProfileDAO.findStatus()");
             // Use PDO Statement to grab profile from database
-            $stmt = $this->db->prepare("SELECT `id`, `firstname`, `lastname`, `country`, `state`, `city`, `street`, `zip`, `status`, `Users_id` FROM `Profiles` WHERE `Users_id` = :userid");
+            $stmt = $this->db->prepare("SELECT `status` FROM `Profiles` WHERE `Users_id` = :userid");
             // Bind the parameter
             $stmt->bindParam(':userid', $id);
             // Run the query
@@ -127,6 +131,8 @@ class ProfileDAO
                 $data = $stmt->fetch(PDO::FETCH_ASSOC);
                 // Pass it in a data array and make a new profile object
                 $status = $data['status'];
+                
+                AchieveLogger::info("Exiting ProfileDAO.findStatus()");
                 // return the new profile object
                 return $status;
                 
@@ -140,13 +146,56 @@ class ProfileDAO
         } catch(PDOException $e)
         {
             
-            // Log the pdo exception
-            Log::error("Exception: ", array("message" => $e->getMessage()));
-            //          // Log the database exception
+//             // Log the pdo exception
+            AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+               // Log the database exception
             throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
             // return false;
             return false;
         }
+            
+        }
+        /*
+         * Method to find specific profile status
+         */
+        public function findStatusByID($id)
+        {
+            try {
+                AchieveLogger::info("Entering ProfileDAO.findStatusID()");
+                // Use PDO Statement to grab profile from database
+                $stmt = $this->db->prepare("SELECT `status` FROM `Profiles` WHERE `id` = :id");
+                // Bind the parameter
+                $stmt->bindParam(':id', $id);
+                // Run the query
+                $stmt->execute();
+                // If the query found something
+                if($stmt->rowCount() == 1)
+                {
+                    //fetch the data from the pdo statement
+                    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+                    // Pass it in a data array and make a new profile object
+                    $status = $data['status'];
+                    AchieveLogger::info("Exiting ProfileDAO.findStatusID()");
+                    // return the new profile object
+                    return $status;
+                    
+                    
+                }
+                else
+                {
+                    // return null
+                    return null;
+                }
+            } catch(PDOException $e)
+            {
+                
+                // Log the pdo exception
+                AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+                //          // Log the database exception
+                throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
+                // return false;
+                return false;
+            }
             
         }
         /*
@@ -155,6 +204,7 @@ class ProfileDAO
         public function updateProfile($id, $profile)
         {
             try {
+                AchieveLogger::info("Entering ProfileDAO.findupdateProfile()");
             // Grab the profiles perameters
             $firstname = $profile->getFirstname();
             $lastname = $profile->getLastname();
@@ -178,6 +228,7 @@ class ProfileDAO
             $stmt->bindParam(':uid', $id);
             // Result is equal to execute query
             $result  = $stmt->execute();
+            AchieveLogger::info("Exiting ProfileDAO.findupdateProfile()");
             // if query is executed corretly
             if($result)
             {
@@ -192,10 +243,9 @@ class ProfileDAO
         {
             
             // Log the pdo exception
-            Log::error("Exception: ", array("message" => $e->getMessage()));
+            AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
             //          // Log the database exception
             throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
-            // return false;
             return false;
         }
             
@@ -206,7 +256,7 @@ class ProfileDAO
         public function findProfiles($id)
         {
             try{
-            
+                AchieveLogger::info("Entering ProfileDAO.findProfiles()");
             // Create a new array object
             $profiles = new \ArrayObject();
             
@@ -236,6 +286,7 @@ class ProfileDAO
                     
                   
                 }
+                AchieveLogger::info("Entering ProfileDAO.findProfiles()");
                 // Return array of profiles
                 return $profiles;
                 
@@ -244,7 +295,7 @@ class ProfileDAO
             {
                 
                 // Log the pdo exception
-                Log::error("Exception: ", array("message" => $e->getMessage()));
+                AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
                 //          // Log the database exception
                 throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
                 // return false;
@@ -258,6 +309,7 @@ class ProfileDAO
         public function DeleteProfile($id)
         {
             try{
+                AchieveLogger::info("Entering ProfileDAO.DeleteProfile()");
             // Query string 
             $stmt = $this->db->prepare('DELETE FROM `Profiles` WHERE id = :id');
             // bind the parameter
@@ -274,6 +326,7 @@ class ProfileDAO
                 Log::error("Exception: ", array("message" => $e->getMessage()));
                 //          // Log the database exception
                 throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
+                AchieveLogger::info("Exiting ProfileDAO.DeleteProfile()");
                 // return false;
                 return false;
             }
@@ -284,11 +337,12 @@ class ProfileDAO
         public function updateProfileStatus($id, $status)
         {
             try{
+                AchieveLogger::info("Entering ProfileDAO.updateProfileStatus()");
             // if profile status is equal to 1
             if($status == 1)
             {
                 // unsuspend it by setting it to 0 in the query string
-            $stmt = $this->db->prepare('UPDATE `Profiles` SET `status`= 0 WHERE `id` = :id ');
+            $stmt = $this->db->prepare('UPDATE `Profiles` SET `status`= 0 WHERE `id` = :id');
             // bind id parameter
             $stmt->bindParam(':id', $id);
             // execute command
@@ -297,7 +351,7 @@ class ProfileDAO
             return true;
             }
             // if profile status is equal to 0
-            elseif($status == 0)
+            else if($status == 0)
             {
                 // create query string to suspend it
                 $stmt = $this->db->prepare('UPDATE `Profiles` SET `status`= 1 WHERE `id` = :id ');
@@ -305,6 +359,7 @@ class ProfileDAO
                 $stmt->bindParam(':id', $id);
                 // execute query
                 $stmt->execute();
+                AchieveLogger::info("Exiting ProfileDAO.updateProfileStatus()");
                 // return true
                 return true;
             }
@@ -316,8 +371,8 @@ class ProfileDAO
             {
                 
                 // Log the pdo exception
-                Log::error("Exception: ", array("message" => $e->getMessage()));
-                //          // Log the database exception
+                AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+                // Log the database exception
                 throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
                 // return false;
                 return false;

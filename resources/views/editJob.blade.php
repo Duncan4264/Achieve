@@ -7,9 +7,17 @@
 // CST - 256
 // This is my own work
 ?>
+@if(Session::has('users'))
 <form action = "processJob" method="post">
 <input type="hidden" name = "_token" value = "<?php echo csrf_token()?>" />
-<h2>Edit Profile</h2>
+<input type="hidden" name="id" value="{{$jobs->getId()}}">
+<h2>Edit Jobs</h2>
+@if($errors->count() != 0)
+<h1>List of Errors</h1>
+@foreach($errors->all() as $message)
+	{{ $message }} <br/>
+@endforeach
+@endif
 <table>
 <tr>
   <td>Job Title: </td>
@@ -34,4 +42,5 @@
  </tr>
 </table>
 </form>
+@endif
 @endsection

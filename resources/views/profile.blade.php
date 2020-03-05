@@ -8,7 +8,7 @@
 // This is my own work
 ?>
 
-
+@if(Session::has('users'))
 <div class="container emp-profile">
             <form method="get">
                 <div class="row">
@@ -22,6 +22,9 @@
                         </div>
                     </div>
                     <div class="col-md-6">
+                    @if(Session::has('suspended'))
+                    <h1>SUSPENDED</h1>
+                    @endif
                         <div class="profile-head">
                                     <h5>
                                          {{ $profile->getFirstName() }} {{$profile->getLastName() }}
@@ -47,18 +50,26 @@
                     </div>
                     
                 </div>
+                
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-work">
                             <p>SKILLS</p>
-                            <a href="">{{$skill->getSkill1()}}</a><br/>
-                            <a href="">{{$skill->getSkill2()}}</a><br/>
-                            <a href="">{{$skill->getSkill3()}}</a><br/>
-                            <a href="">{{$skill->getSkill4()}}</a><br/>
-                            <a href="">{{$skill->getSkill5()}}</a><br/>
-                            <input type="submit" class="profile-edit-btn" name="editSkills" formaction="editskill" value="Edit Skills"/>
+                            @foreach ($skills as $skill)
+                             <form action='skillAction' method="POST">
+                              <input type="hidden" name="id" value="{{$skill->getId()}}"/>
+                              <input type="hidden" name = "_token" value = "<?php echo csrf_token()?>" />
+                            <a href="">{{$skill->getSkill()}}</a><br/>
+                            <input type="submit" class="profile-edit-btn" name="editSkills" formaction="editskill" value="Edit Skill"/>
+                            </form>
+                            </br>
+                      @endforeach    
                         </div>
+                          <input type="submit" class="profile-edit-btn" name="createSkill" formaction="createskill" value="Create Skill"/>
+                            
+       
                     </div>
+                 
                     <div class="col-md-8">
                         <div class="tab-content profile-tab" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -104,6 +115,10 @@
                                         </div>
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                              @foreach ($educations as $education)
+                              <form action='educationAction' method="POST">
+                              <input type="hidden" name="id" value="{{$education->getId()}}"/>
+                              <input type="hidden" name = "_token" value = "<?php echo csrf_token()?>" />
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Degree Title: </label>
@@ -134,22 +149,39 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <p>{{$education->getEndDate()}}</p>
+                                                 
                                             </div>
                                         </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <input type="submit" class="profile-edit-btn" name="editeducation" formaction="editeducation" value="Edit Education"/>
                                     </div>
+                                    
+                                    </div>
+                                   
+                                   
+                                    @endforeach
+                                 </br>
+                                 <div class="row">
+                                    <div class="col-md-11">
+                                        <input type="submit" class="profile-edit-btn" name="createeducation" formaction="createeducation" value="Create Education"/>
+                                    </div>   
+                                    
                                 </div>
                             </div>
+ </form>
                             
                              <div class="tab-pane fade" id="job" role="tabpanel" aria-labelledby="profile-tab">
+                             @foreach ($jobs as $job)
+                             <form action='jobAction' method="POST">
+                              <input type="hidden" name="id" value="{{$job->getId()}}"/>
+                              <input type="hidden" name = "_token" value = "<?php echo csrf_token()?>" />
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Job Title: </label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>{{$jobs->getJobTitle()}}</p>
+                                                <p>{{$job->getJobTitle()}}</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -157,7 +189,7 @@
                                                 <label>Compaty Name: </label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>{{$jobs->getCompany()}}</p>
+                                                <p>{{$job->getCompany()}}</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -165,7 +197,7 @@
                                                 <label>Start Date:</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>{{$jobs->getStartDate()}}</p>
+                                                <p>{{$job->getStartDate()}}</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -173,7 +205,7 @@
                                                 <label>End Date:</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>{{$jobs->getEndDate()}}</p>
+                                                <p>{{$job->getEndDate()}}</p>
                                             </div>
                                         </div>
                                 <div class="row">
@@ -181,15 +213,23 @@
                                         <input type="submit" class="profile-edit-btn" name="editjob" formaction="editjob" value="Edit Job History"/>
                                     </div>
                                 </div>
+                                 @endforeach
+                                </br>
+                                           <div class="row">
+                                    <div class="col-md-11">
+                                        <input type="submit" class="profile-edit-btn" name="createjob" formaction="createjob" value="Create Job"/>
+                                    </div>   
+                                    
+                                </div>
                             </div>
+                             </form>
                             
-                            
-                            
+                           
                              
                         </div>
                     </div>
                 </div>
             </form>           
         </div>
-
+@endif
 @endsection

@@ -8,17 +8,20 @@ class Job
     private $company;
     private $startDate;
     private $endDate;
-    
+    private $id;
+     
     /*
      * Constructor to inialize the variables
      */
-    public function __construct($jobTitle, $company, $startDate, $endDate)
+    public function __construct($jobTitle, $company, $startDate, $endDate, $id)
     {
         $this->company = $company;
         $this->jobTitle = $jobTitle;
         $this->startDate = $startDate;
         $this->endDate = $endDate;
+        $this->id = $id;
     }
+    
     /**
      * @return mixed
      */
@@ -49,6 +52,13 @@ class Job
     public function getEndDate()
     {
         return $this->endDate;
+    }
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
 }

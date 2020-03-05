@@ -2,20 +2,20 @@
 namespace App\Services\Buisness;
 
 use PDO;
-use App\Services\Data\JobDAO;
+
 use App\Services\Utility\AchieveLogger;
-use App\Model\Job;
+use App\Services\Data\GroupDAO;
 
 
 
-class JobService
+class GroupService
 {
     /*
-     * Display Job Information
+     * Display Group Information
      */
-    public function myJobs($id)
+    public function myGroups($id)
     {
-        AchieveLogger::info("Entering JobService.myJobs()");
+        AchieveLogger::info("Entering GroupService.myGroups()");
         // create a new database connection
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
@@ -26,23 +26,23 @@ class JobService
         $db  = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
         // PDO set attribute for error exceptions
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        // Create a new Job data access object
-        $service = new JobDAO($db);
-        // Grab a specfic user from  job data access object
-        $job = $service->findJob($id);
+        // Create a new group data access object
+        $groupService = new GroupDAO($db);
+        // Grab a specfic user from group data access object
+        $group = $groupService->findGroup($id);
         
-        AchieveLogger::info("Exiting JobService.myJobs()");
+        AchieveLogger::info("Exiting GroupService.myGroup()");
         // return user
-        return $job;
+        return $group;
         
     }
     /*
-     * Find Job Information By ID
+     * Find Group Information By ID
      */
-    public function myJobID($id)
+    public function myGroupID($id)
     {
         
-        AchieveLogger::info("Entering JobService.myJobID()");
+        AchieveLogger::info("Entering GroupService.myGroupID()");
         // create a new database connection
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
@@ -53,21 +53,21 @@ class JobService
         $db  = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
         // PDO set attribute for error exceptions
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        // Create a new profile data access layer
-        $service = new JobDAO($db);
-        // Grab a specfic user from job data access object
-        $job = $service->findJobID($id);
-        AchieveLogger::info("Exiting JobService.myJobID()");
+        // Create a new group data access object
+        $groupService = new GroupDAO($db);
+        // Grab a specfic user from  group data access object
+        $group = $groupService->findGroupID($id);
+        AchieveLogger::info("Exiting GroupService.myGroupID()");
         // return user
-        return $job;
+        return $group;
         
     }
     /*
-     * Update skills
+     * Update Group
      */
-    public function updateJobs($id, $j)
+    public function updateGroup($id, $g)
     {
-        AchieveLogger::info("Entering JobService.updateJobs()");
+        AchieveLogger::info("Entering GroupService.updateGroup()");
         // Connect to the database
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
@@ -77,26 +77,26 @@ class JobService
         // Make a new PDO connection
         $db  = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        // Create a new job Data acess object
-        $service =  new JobDAO($db);
+        // Create a new group Data acess object
+        $groupService = new GroupDAO($db);
         
         
-        // Call the data acess object to method to edit a job
-        $flag = $service->update($id, $j);
+        // Call the data acess object to method to edit a group
+        $group = $groupService->update($id, $g);
         
         // Close connection
         $db = null;
         
-        AchieveLogger::info("Exiting JobService.updateJobs()");
+        AchieveLogger::info("Exiting GroupService.updateGroup()");
         // Return data acess object information
-        return $flag;
+        return $group;
     }
     /*
-     * Create Job
+     * Create Group
      */
-    public function createJob($id, $j)
+    public function createGroup($id, $g)
     {
-        AchieveLogger::info("Entering JobService.createJob()");
+        AchieveLogger::info("Entering GroupService.createGroup()");
         // Connect to the database
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
@@ -106,19 +106,48 @@ class JobService
         // Make a new PDO connection
         $db  = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        // Create a new job Data acess object
-        $service =  new JobDAO($db);
+        // Create a new group Data acess object
+        $groupService = new GroupDAO($db);
         
         
-        // Call the data acess object to method to edit a job
-        $flag = $service->create($id, $j);
+        // Call the data acess object to method to edit a group
+        $group = $groupService->create($g, $id);
         
         // Close connection
         $db = null;
         
-        AchieveLogger::info("Exiting JobService.createJob()");
+        AchieveLogger::info("Exiting GroupService.createGroup()");
         // Return data acess object information
-        return $flag;
+        return $group;
+    }
+    /*
+     * Delete Group
+     */
+    public function deleteGroup($id)
+    {
+        AchieveLogger::info("Entering GroupService.deleteGroup()");
+        // Connect to the database
+        $servername = config("database.connections.mysql.host");
+        $port = config("database.connections.mysql.port");
+        $username = config("database.connections.mysql.username");
+        $password = config("database.connections.mysql.password");
+        $dbname = config("database.connections.mysql.database");
+        // Make a new PDO connection
+        $db  = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // Create a new group Data acess object
+        $groupService = new GroupDAO($db);
+        
+        
+        // Call the data acess object to method to edit a group
+        $group = $groupService->delete($id);
+        
+        // Close connection
+        $db = null;
+        
+        AchieveLogger::info("Exiting GroupService.deleteGroup()");
+        // Return data acess object information
+        return $group;
     }
 }
 

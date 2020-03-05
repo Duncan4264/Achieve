@@ -1,14 +1,16 @@
 <?php
 namespace App\Services\Data;
 
-use App\Model\Skill;
+
+use App\Model\Job;
 use Illuminate\Contracts\Logging\Log;
 use PDO;
 use PDOException;
 use App\Services\Utility\AchieveLogger;
 use App\Services\Utility\DatabaseException;
+use App\Model\Group;
 
-class SkillsDAO
+class GroupDAO
 {
     private $db;
     
@@ -16,18 +18,20 @@ class SkillsDAO
     {
         $this->db = $db;
     }
+    
     /*
-     * Method to find specific skill
+     * Method to find specific job
      */
-    public function findSkill($id)
+    public function findGroup($id)
     {
+        // Log find group
+        AchieveLogger::info("Entering  GroupDAO.findGroup()");
         try {
-            AchieveLogger::info("Entering SkillDAO.findSkill()");
             // Create a new array object
-            $jobs = new \ArrayObject();
+            $groups = new \ArrayObject();
             
             // Query Statment
-            $stmt = $this->db->prepare('SELECT * FROM `skills` WHERE `Users_id`= :userid');
+            $stmt = $this->db->prepare('SELECT * FROM `Groups`');
             // Bind the parameter
             $stmt->bindParam(':userid', $id);
             // Execute Query Statement
@@ -43,16 +47,63 @@ class SkillsDAO
                 // While the query is till fetching information put each itme in a data varaible
                 while($data = $stmt->fetch(PDO::FETCH_ASSOC))
                 {
-                    // Create a new Skill object that adds each data item found into a new data profile
-                    $profile= new Skill($data['skill'], $data['id']);
-                    $jobs->append($profile);
+                    // Create a new Group object that adds each data item found into a new data profile
+                    $profile= new Group($data['GroupName'], $data['GroupDescription'], $data['id'], $data['Users_id']);
+                    $groups->append($profile);
                     
                     
                     
                 }
-                AchieveLogger::info("Exiting SkillDAO.findSkill()");
+                AchieveLogger::info("Exiting GroupDAO.findGroup()");
                 // Return array of jobs
-                return $jobs;
+                return $groups;
+                
+            }
+        } catch(PDOException $e)
+        {
+            
+            // Log the pdo exception
+            AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+            //          // Log the database exception
+            throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
+            // return false;
+            return false;
+        }
+    }
+    
+    /*
+     * Find Job ID
+     */
+    public function findGroupID($id)
+    {
+        try {
+            AchieveLogger::info("Entering GroupDAO.findGroupID()");
+            // Query Statment
+            $stmt = $this->db->prepare('SELECT `id`, `GroupName`, `GroupDescription`, `Users_id` FROM `Groups` WHERE `id` = :userid');
+            // Bind the parameter
+            $stmt->bindParam(':userid', $id);
+            // Execute Query Statement
+            $stmt->execute();
+            
+            
+            
+            
+            
+            // Check if the query fetched any rows
+            if($stmt->rowCount() > 0)
+            {
+                // While the query is till fetching information put each itme in a data varaible
+                while($data = $stmt->fetch(PDO::FETCH_ASSOC))
+                {
+                    // Create a new Group object that adds each data item found into a new data profile
+                    $groups = new Group($data['GroupName'], $data['GroupDescription'], $data['id'], $data['Users_id']);
+                    
+                    
+                    
+                }
+                AchieveLogger::info("Exiting GroupDAO.findGroupID()");
+                // Return array of jobs
+                return $groups;
                 
             }
         } catch(PDOException $e)
@@ -67,83 +118,26 @@ class SkillsDAO
         }
     }
     /*
-     * Method to find skill by id
+     * Method to create job
      */
-    public function findSkillID($id)
-    {
-        try {
-            AchieveLogger::info("Entering SkillDAO.findSkillID()");
-            // Query Statment
-            $stmt = $this->db->prepare('SELECT `id`, `skill`, `Users_id` FROM `skills` WHERE `id` = :id');
-            // Bind the parameter
-            $stmt->bindParam(':id', $id);
-            // Execute Query Statement
-            $stmt->execute();
-            
-            
-            
-            
-            
-            // Check if the query fetched any rows
-            if($stmt->rowCount() > 0)
-            {
-                // While the query is till fetching information put each itme in a data varaible
-                while($data = $stmt->fetch(PDO::FETCH_ASSOC))
-                {
-                    // Create a new Skill object that adds each data item found into a new data profile
-                    $jobs= new Skill($data['skill'], $data['id']);
-                    
-                    
-                    
-                }
-                AchieveLogger::info("Exiting SkillDAO.findSkillID()");
-                // Return array of jobs
-                return $jobs;
-            }
-        } catch(PDOException $e)
-        {
-            
-            // Log the pdo exception
-            AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
-            //          // Log the database exception
-            throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
-            // return false;
-            return false;
-        }
-    }
-    /*
-     * Method to create skill history
-     */
-    public function create(Skill $s, $uid)
+    public function create(Group $g, $uid)
     {
         try{
-            AchieveLogger::info("Entering SkiillDAO.create()");
-            // Grab variables from the profile model
-            $skill =  $s->getSkill();
-  
+            AchieveLogger::info("Entering GroupDAO.create()");
+            // Grab variables from the group model
+           $groupName =  $g->getGroupName();
+           $groupDescripton =  $g->getGroupDescripton();
             
-            
-            // PDO statement to insert the user into the SKill table
-            $stmt = $this->db->prepare('INSERT INTO `skills` (`id`, `skill`, `Users_id`) VALUES (NULL, :skill, :uid)');
-            // Bind the variables of the PDO statment to the Skill model variables
-            $stmt->bindParam(':skill', $skill);;
-            $stmt->bindParam(':uid', $uid);
-            $stmt->execute();
-            // return true
-            return true;
-            
-            // PDO statement to insert the user into the Skill table
-            $stmt = $this->db->prepare('INSERT INTO `JobHistory` (`id`, `jobtitle`, `jobcompany`, `startdate`, `enddate`, `Users_id`)
-          VALUES
-         (NULL, :jobtitle, :company, :startdate, :enddate, :uid)');
+            // PDO statement to insert the user into the Groups table
+            $stmt = $this->db->prepare('INSERT INTO `Groups` (`id`, `GroupName`, `GroupDescription`, `Users_id`) 
+                VALUES 
+             (NULL, :groupName,  :groupDescripton, :uid)');
             // Bind the variables of the PDO statment to the profile model variables
-            $stmt->bindParam(':jobtitle', $jobTitle);
-            $stmt->bindParam(':company', $company);
-            $stmt->bindParam(':startdate', $startDate);
-            $stmt->bindParam(':enddate', $enddate);
+            $stmt->bindParam(':groupName', $groupName);
+            $stmt->bindParam('groupDescripton', $groupDescripton);
             $stmt->bindParam(':uid', $uid);
             $stmt->execute();
-            AchieveLogger::info("Exiting SkiillDAO.create()");
+            AchieveLogger::info("Exiting GroupDAO.create()");
             // return true
             return true;
             
@@ -162,25 +156,63 @@ class SkillsDAO
         }
     }
     /*
-     * Method to update Skill
+     * Method to update Job History
      */
-    public function update($id, Skill $s)
+    public function update($id, Group $g)
     {
         try {
-            AchieveLogger::info("Entering SkiillDAO.update()");
-            // Grab the Skill perameters
-            $skill =  $s->getSkill();
-            //Create a new query to update skill where id is equal to the profile id
-            $stmt = $this->db->prepare("UPDATE `skills` SET 
-             `skill`= :skill
-           WHERE `id` = :id");
+            AchieveLogger::info("Entering GroupDAO.update()");
+            // Grab the Group perameters
+            $groupName = $g->getGroupName();
+            $groupDescription = $g->getGroupDescripton();
+            //Create a new query to update Group where id is equal to the profile id
+            $stmt = $this->db->prepare("UPDATE `Groups` SET 
+           `GroupName`=:groupname,`GroupDescription`= :groupdescription WHERE `id` = :id");
             // Bind the query parameters
-            $stmt->bindParam(':skill', $skill);
+            $stmt->bindParam(':groupname', $groupName);
+            $stmt->bindParam(':groupdescription', $groupDescription);
             $stmt->bindParam(':id', $id);
             // Result is equal to execute query
             $result  = $stmt->execute();
             // if query is executed corretly
-            AchieveLogger::info("Exiting SkiillDAO.update()");
+            AchieveLogger::info("Exiting GroupDAO.update()");
+            if($result)
+            {
+                // return true
+                return true;
+            }
+            else {
+                // else return false
+                return false;
+            }
+        } catch(PDOException $e)
+        {
+            
+            // Log the pdo exception
+            AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+            //          // Log the database exception
+            throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
+            // return false;
+            return false;
+        }
+    }
+    /*
+     * Method to delete group
+     */
+    public function delete($id)
+    {
+        try {
+            AchieveLogger::info("Entering GroupDAO.delete()");
+            //Create a new query to update Group where id is equal to the profile id
+            $stmt = $this->db->prepare("DELETE FROM `Groups` 
+            WHERE 
+            `Groups`.`id` = :uid");
+            // Bind the query parameters
+            $stmt->bindParam(':uid', $id);
+            // Result is equal to execute query
+            $result  = $stmt->execute();
+            // if query is executed corretly
+            AchieveLogger::info("Exiting GroupDAO.delete()");
             if($result)
             {
                 // return true

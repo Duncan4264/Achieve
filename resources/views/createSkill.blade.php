@@ -8,10 +8,9 @@
 // This is my own work
 ?>
 @if(Session::has('users'))
-<form action = "processSkill" method="post">
+<form action = "processCreateSkill" method="post">
 <input type="hidden" name = "_token" value = "<?php echo csrf_token()?>" />
-<input type="hidden" name="id" value="{{$skill->getId()}}">
-<h2>Edit Skill</h2>
+<h2>Create Skill</h2>
 @if($errors->count() != 0)
 <h1>List of Errors</h1>
 @foreach($errors->all() as $message)
@@ -21,11 +20,11 @@
 <table>
 <tr>
   <td>Skill name: </td>
-  <td><input type = "text" name = "skill" value="{{$skill->getSkill()}}" maxlength=20/></td>
+  <td><input type = "text" name = "skill" value="" maxlength=20/></td>
   </tr>
  <tr>
     <td colspan = "2" align = "center">
-        <input type = "submit" value = "Edit Profile" /> 
+        <input type = "submit" value = "Create Skill" /> 
         </td>
  </tr>
 </table>

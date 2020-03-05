@@ -2,10 +2,9 @@
 namespace App\Services\Buisness;
 
 use PDO;
-use App\Model\Education;
-use App\Services\Data\EducationDAO;
 use App\Model\Skill;
 use App\Services\Data\SkillsDAO;
+use App\Services\Utility\AchieveLogger;
 class SkillService
 {
     /*
@@ -13,6 +12,7 @@ class SkillService
      */
     public function mySkills($id)
     {
+        AchieveLogger::info("Entering SkillService.mySkills()");
         // create a new database connection
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
@@ -23,17 +23,37 @@ class SkillService
         $db  = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
         // PDO set attribute for error exceptions
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        // Create a new profile data access layer
+        // Create a new skill data access layer
         $service = new SkillsDAO($db);
-        // Grab a specfic user from  profile data access layer
+        // Grab a specfic user from  skill data access layer
         $profile = $service->findSkill($id);
-        // if user is null
-        if($profile == null)
-        {
-            // create new skill with NA to print not avaiable
-            $profile = new Skill("NA", "NA", "NA", "NA", "NA");
-            $service->create($profile, $id);
-        }
+        AchieveLogger::info("Exiting SkillService.mySkills()");
+        // return user
+        return $profile;
+        
+    }
+    /*
+     * Method to display skill by id
+     */
+    public function mySkillID($id)
+    {
+        AchieveLogger::info("Entering SkillService.mySkillID()");
+        // create a new database connection
+        $servername = config("database.connections.mysql.host");
+        $port = config("database.connections.mysql.port");
+        $username = config("database.connections.mysql.username");
+        $password = config("database.connections.mysql.password");
+        $dbname = config("database.connections.mysql.database");
+        // Make a new PDO connection
+        $db  = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
+        // PDO set attribute for error exceptions
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // Create a new skill data access object
+        $service = new SkillsDAO($db);
+        // Grab a specfic user from  skill data access object
+        $profile = $service->findSkillID($id);
+        
+        AchieveLogger::info("Exiting SkillService.mySkillID()");
         // return user
         return $profile;
         
@@ -43,6 +63,36 @@ class SkillService
      */
     public function updateSkills($id, $s)
     {
+        AchieveLogger::info("Entering SkillService.updateSkills()");
+        // Connect to the database
+        $servername = config("database.connections.mysql.host");
+        $port = config("database.connections.mysql.port");
+        $username = config("database.connections.mysql.username");
+        $password = config("database.connections.mysql.password");
+        $dbname = config("database.connections.mysql.database");
+        // Make a new PDO connection
+        $db  = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // Create a new Skill Data acess object
+        $service =  new SkillsDAO($db);
+        
+        
+        // Call the skill acess object to method to edit a skill
+        $flag = $service->update($id, $s);
+        
+        // Close connection
+        $db = null;
+        
+        AchieveLogger::info("Exiting SkillService.updateSkills()");
+        // Return data acess object information
+        return $flag;
+    }
+    /*
+     * add skills
+     */
+    public function addSkills(Skill $j, $id)
+    {
+        AchieveLogger::info("Entering SkillService.addSkills()");
         // Connect to the database
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
@@ -56,12 +106,13 @@ class SkillService
         $service =  new SkillsDAO($db);
         
         
-        // Call the skill acess object to method to edit a profile
-        $flag = $service->update($id, $s);
+        // Call the skill acess object to method to edit a skill
+        $flag = $service->create($j, $id);
         
         // Close connection
         $db = null;
         
+        AchieveLogger::info("Exiting SkillService.addSkills()");
         // Return data acess object information
         return $flag;
     }

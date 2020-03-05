@@ -3,6 +3,7 @@ namespace App\Model;
 
 class Recuitment
 {
+    // Grab Recruitment Variables
     private $jobTitle;
     private $company;
     private $description;
@@ -12,7 +13,9 @@ class Recuitment
     
 
 
-
+    /*
+     * Inizalize Reruitment Variables
+     */
     public function __construct($jobTitle, $company, $description, $salray, $requirements, $id)
     {
      $this->jobTitle = $jobTitle;
@@ -23,7 +26,7 @@ class Recuitment
      $this->id = $id;
     }
     /**
-     * @return mixed
+     * return Job Title
      */
     public function getJobTitle()
     {
@@ -31,7 +34,7 @@ class Recuitment
     }
     
     /**
-     * @return mixed
+     * return Company
      */
     public function getCompany()
     {
@@ -39,15 +42,15 @@ class Recuitment
     }
     
     /**
-     * @return mixed
+     * return description
      */
     public function getDescription()
     {
         return $this->description;
     }
     
-    /**
-     * @return mixed
+    /*
+     * return salary
      */
     public function getSalary()
     {
@@ -55,7 +58,7 @@ class Recuitment
     }
     
     /**
-     * @return mixed
+     * return requirements
      */
     public function getRequirements()
     {
@@ -63,7 +66,7 @@ class Recuitment
     }
     
     /**
-     * @return mixed
+     * return id
      */
     public function getId()
     {

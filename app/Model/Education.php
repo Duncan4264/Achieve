@@ -12,17 +12,19 @@ class Education
     private $university;
     private $startDate;
     private $endDate;
+    private $id;
     
-    
+
     /*
      * Constructor to inialize the variables
      */
-    public function __construct($degreeName, $university, $startDate, $endDate)
+    public function __construct($degreeName, $university, $startDate, $endDate, $id)
     {
         $this->degreeName = $degreeName;
         $this->university = $university;
         $this->startDate = $startDate;
         $this->endDate = $endDate;
+        $this->id = $id;
     }
     /**
      * return degreename
@@ -55,6 +57,16 @@ class Education
     {
         return $this->endDate;
     }
+    
+    /**
+     * return id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+    
+    
 
 
 }

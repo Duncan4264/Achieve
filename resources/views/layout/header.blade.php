@@ -30,9 +30,11 @@
                 @if(Session::has('users'))
                     <li class="nav-item" role="presentation"><a class="nav-link active" href="login">Feed</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="profile">Profile</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="groups">Groups</a></li>
                        @endif 
                         @if(Session::has('admin'))
                     <li class="nav-item" role="presentation"><a class="nav-link" href="admin">Admin</a></li>
+                     <li class="nav-item" role="presentation"><a class="nav-link" href="jobadmin">Job Admin</a></li>
                     @endif
                     </li>
                  
