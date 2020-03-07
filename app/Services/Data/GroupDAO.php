@@ -72,7 +72,7 @@ class GroupDAO
     }
     
     /*
-     * Find Job ID
+     * Find Group by ID
      */
     public function findGroupID($id)
     {
@@ -82,6 +82,53 @@ class GroupDAO
             $stmt = $this->db->prepare('SELECT `id`, `GroupName`, `GroupDescription`, `Users_id` FROM `Groups` WHERE `id` = :userid');
             // Bind the parameter
             $stmt->bindParam(':userid', $id);
+            // Execute Query Statement
+            $stmt->execute();
+            
+            
+            
+            
+            
+            // Check if the query fetched any rows
+            if($stmt->rowCount() > 0)
+            {
+                // While the query is till fetching information put each itme in a data varaible
+                while($data = $stmt->fetch(PDO::FETCH_ASSOC))
+                {
+                    // Create a new Group object that adds each data item found into a new data profile
+                    $groups = new Group($data['GroupName'], $data['GroupDescription'], $data['id'], $data['Users_id']);
+                    
+                    
+                    
+                }
+                AchieveLogger::info("Exiting GroupDAO.findGroupID()");
+                // Return array of jobs
+                return $groups;
+                
+            }
+        } catch(PDOException $e)
+        {
+            
+            // Log the pdo exception
+            AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+            //          // Log the database exception
+            throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
+            // return false;
+            return false;
+        }
+    }
+    /*
+     * Find Group by name
+     */
+    public function findGroupName($groupName, $id)
+    {
+        try {
+            AchieveLogger::info("Entering GroupDAO.findGroupName()");
+            // Query Statment
+            $stmt = $this->db->prepare('SELECT `id`, `GroupName`, `GroupDescription`, `Users_id` FROM `Groups` WHERE `GroupName` = :groupname AND `Users_id` = :userid');
+            // Bind the parameter
+            $stmt->bindParam(':userid', $id);
+            $stmt->bindParam(':groupname', $groupName);
             // Execute Query Statement
             $stmt->execute();
             

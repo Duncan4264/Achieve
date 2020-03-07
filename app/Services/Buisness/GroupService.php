@@ -3,6 +3,7 @@ namespace App\Services\Buisness;
 
 use PDO;
 
+use App\Model\Member;
 use App\Services\Utility\AchieveLogger;
 use App\Services\Data\GroupDAO;
 
@@ -149,5 +150,32 @@ class GroupService
         // Return data acess object information
         return $group;
     }
+    /*
+     * Find Group Information By Name and userid
+     */
+    public function myGroupName($groupname, $id)
+    {
+        
+        AchieveLogger::info("Entering GroupService.myGroupName()");
+        // create a new database connection
+        $servername = config("database.connections.mysql.host");
+        $port = config("database.connections.mysql.port");
+        $username = config("database.connections.mysql.username");
+        $password = config("database.connections.mysql.password");
+        $dbname = config("database.connections.mysql.database");
+        // Make a new PDO connection
+        $db  = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
+        // PDO set attribute for error exceptions
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // Create a new group data access object
+        $groupService = new GroupDAO($db);
+        // Grab a specfic user from  group data access object
+        $group = $groupService->findGroupName($groupname, $id);
+        AchieveLogger::info("Exiting GroupService.myGroupName()");
+        // return user
+        return $group;
+        
+    }
+
 }
 

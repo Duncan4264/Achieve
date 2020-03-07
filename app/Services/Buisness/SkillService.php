@@ -26,10 +26,18 @@ class SkillService
         // Create a new skill data access layer
         $service = new SkillsDAO($db);
         // Grab a specfic user from  skill data access layer
-        $profile = $service->findSkill($id);
+        $skills = $service->findSkill($id);
+        // if skills is null
+        if($skills == null)
+        {
+            // create a new skill place holder
+            $skills = new Skill("NA", -1);
+            $service->create($skills, $id);
+        }
+        
         AchieveLogger::info("Exiting SkillService.mySkills()");
         // return user
-        return $profile;
+        return $skills;
         
     }
     /*
@@ -116,5 +124,6 @@ class SkillService
         // Return data acess object information
         return $flag;
     }
+    
 }
 

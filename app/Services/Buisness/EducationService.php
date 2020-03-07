@@ -31,10 +31,17 @@ class EducationService
         // Create a nw Education data access object
         $service = new EducationDAO($db);
         // Grab a specfic user from Education data access layer
-        $profile = $service->findEducation($id);
+        $education = $service->findEducation($id);
+        // if education is null
+        if($education == null)
+        {
+            // create a new education placeholder
+            $education = new Education("NA", "NA", 2019, 2020, -1);
+            $service->create($education, $id);
+        }
         AchieveLogger::info("Exiting EducationService.myEducation()");
         // return user
-        return $profile;
+        return $education;
         
     }
     /*

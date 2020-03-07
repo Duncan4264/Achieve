@@ -30,6 +30,13 @@ class JobService
         $service = new JobDAO($db);
         // Grab a specfic user from  job data access object
         $job = $service->findJob($id);
+        // if job is null
+        if($job == null)
+        {
+            // create a new job placeholder
+            $job = new Job("NA", "NA", 2019, 2020, -1);
+            $service->create($job, $id);
+        }
         
         AchieveLogger::info("Exiting JobService.myJobs()");
         // return user

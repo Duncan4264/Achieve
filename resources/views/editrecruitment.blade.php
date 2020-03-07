@@ -19,23 +19,23 @@
 @endif
 <table>
 <tr>
-  <td>First Name: </td>
+  <td>Job Title: </td>
   <td><input type = "text" name = "jobtitle" value="{{$job->getJobTitle()}}" maxlength=20/></td>
   </tr>
  <tr>
- 	<td>Last Name: </td>
+ 	<td>Company: </td>
  	<td><input type = "text" name = "company" value="{{$job->getCompany()}}" maxlength=20/></td>
  </tr>
  <tr>
-  <td>Country: </td>
+  <td>Descripton: </td>
   <td><input type = "text" name = "descripton"  value="{{$job->getDescription()}}" maxlength=20/></td>
   </tr>
  <tr>
- 	<td>State: </td>
+ 	<td>Salary: </td>
  	<td><input type = "text" name = "salary" value="{{$job->getSalary()}}" maxlength=20/></td>
  </tr>
   <tr>
-  <td>City: </td>
+  <td>Requirements: </td>
   <td><input type = "text" name = "requirements"  value="{{$job->getRequirements()}}" maxlength=20/></td>
   <td><input type="hidden" name="id" value="{{$id}}"></td>
   </tr>

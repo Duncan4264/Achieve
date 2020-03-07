@@ -18,11 +18,11 @@
     <button type="submit" name="edit" formaction="displayeditgroup">Edit</button>
     <button type="submit" name="Delete" formaction="confirmgroupdelete">Delete</button>
     @endif
-     @if(Session::get('ID') != $group->getUserID())
-     <button type="submit" name="Join" formaction="joinGroup">Join</button>
-    <button type="submit" name="Leave" formaction="leaveGroup">Leave</button>
-    @endif
+    <button type="submit" name="Show" formaction="showGroup">Show Group</button>
+  
     </form>
+    
+    
 </td>
 </tr>
 @endforeach
@@ -31,6 +31,7 @@
 
 <form action='groupAction' method="get">
     <button type="submit" name="Create" formaction="createGroup">Create</button>
+      <button type="submit" name="Cancel" formaction="profile">Cancel</button>
     </form>
 @endif
 

@@ -122,6 +122,12 @@ Route::post('/deletegroup', "GroupController@deleteGroup");
 Route::post('/displayeditgroup', "GroupController@displayeditGroup");
 // Group Controller to edit groups
 Route::post('/editGroup', "GroupController@editGroup");
+// Member controller to join group
+Route::post('/joinGroup', "MemberController@joinGroup");
+// Member controller to leave group
+Route::post('/leaveGroup', "MemberController@leaveGroup");
+// Group controller to show group
+Route::post('/showGroup', "GroupController@showGroup");
 
 // Routes to logouts
 Route::get('/logout', "LoginController@logout");

@@ -14,6 +14,10 @@ use App\Services\Buisness\SkillService;
 use App\Services\Buisness\EducationService;
 use App\Model\Group;
 use App\Services\Utility\DatabaseException;
+use App\Services\Buisness\UserService;
+use App\Services\Buisness\ProfileService;
+use App\Model\Member;
+use App\Services\Buisness\MemberService;
 
 
 
@@ -77,6 +81,25 @@ class GroupController extends Controller
             $groupSevice = new GroupService();
             //create group from group service
             $result = $groupSevice->createGroup($id, $g);
+            // Group id
+            $group = $groupSevice->myGroupName($groupName, $id);
+            
+            // grab group id
+            $groupid = $group->getId();
+            // create a new user service
+            $profileService = new profileService();
+            // grab the user
+            $profile = $profileService->myProfile($id);
+            // grab first name
+            $userFirstName = $profile->getFirstname();
+            // grab last name
+            $userLastName = $profile->getLastname();
+            // create a new member object
+            $member = new Member($groupName, $userFirstName, $userLastName, $id, $groupid);
+            // create a new member service
+            $memberService = new MemberService();
+            // Add the creator to the group
+            $memberService->joinGroup($id, $member);
             // display groups service
             $groups = $groupSevice->myGroups($id);
             
@@ -203,7 +226,7 @@ class GroupController extends Controller
             // grab all of the groups
             $groups = $groupService->myGroups($id);
             // Log leaving group
-            AchieveLogger::info("Exiting GroupController.editGrup()");
+            AchieveLogger::info("Exiting GroupController.editGroup()");
             // return the group view with id and profile data
             return view("group")->with([
                 'id' => $id,
@@ -216,4 +239,55 @@ class GroupController extends Controller
             return view('systemexception');
         }
     }
+    /*
+     * Method to show group
+     */
+    public function showGroup(Request $request)
+    {
+        try{
+            AchieveLogger::info("Entering GroupController.displayGroup()");
+            // Grab id session
+            $groupID = $request->input('id');
+            // create a new Group service
+           $groupService = new GroupService();
+            // grab group by id
+            $group = $groupService->myGroupID($groupID);
+            // Make new MemberService
+            $memberService = new MemberService();
+            // Grab user id
+            $id = Session::get('ID');
+            // create profileService
+            $profileService = new ProfileService();
+            $profile = $profileService->myProfile($id);
+            // Get user first name
+            $userFirstName = $profile->getFirstname();
+            // get user last name
+            $userLastName = $profile->getLastname();
+             
+            //create groupService
+            $groupService = new GroupService();
+            // grab group by id
+            $group = $groupService->myGroupID($groupID);
+            // Get group name
+            $groupName = $group->getGroupName();
+            // create new member object
+            $member = new Member($groupName, $userFirstName, $userLastName, $id, $groupID);
+            $members = $memberService->findGroups($id, $member);
+            // Log leaving group
+            AchieveLogger::info("Exiting GroupController.displayGroup()");
+            // return the group view with id and profile data
+            return view("agroup")->with([
+                'id' => $id,
+                'group' => $group,
+                'members' => $members
+            ]);
+        } catch(ValidationException $e1){
+            throw $e1;
+        } catch(\Exception $e2)
+        {
+            return view('systemexception');
+        }
+    }
+
+
 }
