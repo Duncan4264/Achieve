@@ -160,22 +160,26 @@
                                     </div>
                                    
                                    
-                                    @endforeach
+                               
                                  </br>
+                                 </form>
+                                     @endforeach
+                                      <form action='educationAction' method="POST">
                                  <div class="row">
                                     <div class="col-md-11">
                                         <input type="submit" class="profile-edit-btn" name="createeducation" formaction="createeducation" value="Create Education"/>
                                     </div>   
                                     
                                 </div>
+                                </form>
                             </div>
- </form>
+
                             
                              <div class="tab-pane fade" id="job" role="tabpanel" aria-labelledby="profile-tab">
                              @foreach ($jobs as $job)
-                             <form action='jobAction' method="POST">
-                              <input type="hidden" name="id" value="{{$job->getId()}}"/>
+                             <form action='jobAction' method="post">
                               <input type="hidden" name = "_token" value = "<?php echo csrf_token()?>" />
+                              <input type="hidden" name="id" value="{{$job->getId()}}"/>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Job Title: </label>
@@ -208,21 +212,28 @@
                                                 <p>{{$job->getEndDate()}}</p>
                                             </div>
                                         </div>
+                           
                                 <div class="row">
                                     <div class="col-md-12">
                                         <input type="submit" class="profile-edit-btn" name="editjob" formaction="editjob" value="Edit Job History"/>
                                     </div>
+                                    
                                 </div>
-                                 @endforeach
                                 </br>
+                                </form>
+                                  @endforeach
+                                 
+                               
+                               <div class="tab-pane fade" id="job" role="tabpanel" aria-labelledby="profile-tab">
                                            <div class="row">
                                     <div class="col-md-11">
                                         <input type="submit" class="profile-edit-btn" name="createjob" formaction="createjob" value="Create Job"/>
                                     </div>   
-                                    
+                                     
                                 </div>
+                                </form>
                             </div>
-                             </form>
+                            
                             
                            
                              

@@ -154,7 +154,7 @@ class JobController extends Controller
                     'id' => $id,
                     'profile' => $profile,
                     'educations' => $education,
-                    'skill' => $skill,
+                    'skills' => $skill,
                     'jobs' => $job
                 ]);
             }
@@ -217,7 +217,7 @@ class JobController extends Controller
                     'id' => $id,
                     'profile' => $profile,
                     'educations' => $education,
-                    'skill' => $skill,
+                    'skills' => $skill,
                     'jobs' => $job
                 ]);
             }

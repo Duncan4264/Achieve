@@ -212,7 +212,7 @@ class ProfileController extends Controller
            'id' => $id,
            'profile' => $profile,
            'educations' => $education,
-           'skill' => $skill,
+           'skills' => $skill,
            'jobs' => $job
        ]);
        }

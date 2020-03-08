@@ -41,7 +41,7 @@ Route::get('/login', function () {
         // Goes to the admin view
         Route::get('/admin', "AdminController@grabAllProfiles");
         
-        Route::get('/editeducation', "EducationController@displayeditEducation");
+        Route::post('/editeducation', "EducationController@displayeditEducation");
         
         Route::post('/editskill', "SkillController@displayeditSkill");
         
