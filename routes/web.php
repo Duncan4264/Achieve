@@ -128,6 +128,8 @@ Route::post('/joinGroup', "MemberController@joinGroup");
 Route::post('/leaveGroup', "MemberController@leaveGroup");
 // Group controller to show group
 Route::post('/showGroup', "GroupController@showGroup");
+// Job Controller to search Jobs
+Route::post('/search', "JobController@searchJob");
 
 // Routes to logouts
 Route::get('/logout', "LoginController@logout");

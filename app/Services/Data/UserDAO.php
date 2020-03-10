@@ -55,7 +55,7 @@ class UserDAO
         AchieveLogger::info("Exiting UserDAO.createUser()");
         return true;
         
-        //$sql_statement = "INSERT INTO `Users` (`id`, `username`, `password`, `email`) VALUES (NULL, '$user->userName', '$user->Password', '$user->email')";
+       
         }
         // catch if the statement fails and pass through a PDOException peramator
         catch(PDOException $e)

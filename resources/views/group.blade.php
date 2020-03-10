@@ -14,7 +14,7 @@
     <h1>{{$group->getGroupname()}}</h1>
     <input type="hidden" name="id" value="{{$group->getId()}}">
     <input type="hidden" name="group" value="{{$group->getGroupName()}}"/>
-    @if(Session::get('ID') === $group->getUserID())
+    @if($id === $group->getUserID())
     <button type="submit" name="edit" formaction="displayeditgroup">Edit</button>
     <button type="submit" name="Delete" formaction="confirmgroupdelete">Delete</button>
     @endif

@@ -31,11 +31,22 @@
                     <li class="nav-item" role="presentation"><a class="nav-link active" href="login">Feed</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="profile">Profile</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="groups">Groups</a></li>
-                       @endif 
+                    
+                      
                         @if(Session::has('admin'))
                     <li class="nav-item" role="presentation"><a class="nav-link" href="admin">Admin</a></li>
                      <li class="nav-item" role="presentation"><a class="nav-link" href="jobadmin">Job Admin</a></li>
                     @endif
+                    <form class="navbar-form" role="search" action="search" method="post">
+                    <input type="hidden" name = "_token" value = "{{csrf_token()}}" />
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search" name="search">
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </div>
+        </form>
+                     @endif 
                     </li>
                  
         			

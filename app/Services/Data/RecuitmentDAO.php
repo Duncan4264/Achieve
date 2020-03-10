@@ -231,5 +231,58 @@ class RecuitmentDAO
         }
         
     }
-}
+    
+    /*
+     * Method to find specific Job
+     */
+    public function findJobName($search)
+    {
+//         try{
+            AchieveLogger::info("Entering RecuitmentDAO.JobName()");
+            // Create a new array object
+            $jobs = new \ArrayObject();
+            
+            // bind s to a wildcard search
+            $s= "%$search%";
+            // Query Statment
+            $stmt = $this->db->prepare("SELECT * FROM `JobPosting` WHERE `jobtitle` LIKE :search");
+            // bind parameters
+            $stmt->bindParam(':search', $s);
+            // Execute Query Statement
+            $stmt->execute();
+            
+            
+            
+            
+            
+            // Check if the query fetched any rows
+            if($stmt->rowCount() > 0)
+            {
+                // While the query is till fetching information put each itme in a data varaible
+                while($data = $stmt->fetch(PDO::FETCH_ASSOC))
+                {
+                    // Create a new Recuitment object that adds each data item found into a new data profile
+                    $profile = new Recuitment($data['jobtitle'], $data['company'], $data['description'], $data['salary'], $data['requirements'], $data['id']);
+                    $jobs->append($profile);
+                    
+                    
+                    
+                }
+                AchieveLogger::info("Exiting RecuitmentDAO.findJobName()");
+                // Return array of jobs
+                return $jobs;
+                
+            }
+        }
+//         } catch(PDOException $e)
+//         {
+            
+//             // Log the pdo exception
+//             AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+//             //          // Log the database exception
+//             throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
+//             // return false;
+//             return false;
+//         }
+    }
 

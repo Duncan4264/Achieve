@@ -23,6 +23,7 @@ use App\Services\Buisness\SkillService;
 use App\Services\Buisness\JobService;
 use App\Services\Data\JobDAO;
 use App\Model\Job;
+use App\Services\Buisness\RecruitmentService;
 
 class JobController extends Controller
 {
@@ -233,6 +234,25 @@ class JobController extends Controller
             // return false;
             return false;
         }
+    }
+    /*
+     * Method to search Job
+     */
+    public function searchJob(Request $request)
+    {
+        AchieveLogger::info("Entering JobController.searchJob()");
+        // grab information input
+      $search =  $request->input('search');
+      // get the recruitment service
+       $recruitmentService = new RecruitmentService();
+       // search the job and jobService
+       $jobs = $recruitmentService->searchJob($search);
+       
+       return view('searchresults')->with([
+           'jobs' => $jobs
+       ]);
+       AchieveLogger::info("Exiting JobController.searchJob()");
+       
     }
     
     
