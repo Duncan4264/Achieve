@@ -131,6 +131,7 @@ class GroupController extends Controller
      */
     public function confirmDeleteGroup(Request $request)
     {
+        try{
         // Logger info
         AchieveLogger::info("Entering GroupController.confrimDeleteGroup()");
         // grab input group
@@ -144,6 +145,16 @@ class GroupController extends Controller
             'id' => $id,
             'groupname' => $groupname
         ]);
+        }catch(PDOException $e)
+        {
+            
+            // Log the pdo exception
+            AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+            //          // Log the database exception
+            throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
+            // return false;
+            return false;
+        }
         
     }
     /*
@@ -151,6 +162,7 @@ class GroupController extends Controller
      */
     public function deleteGroup(Request $request)
     {
+        try{
         AchieveLogger::info("Entering GroupController.DeleteGroup()");
         // grab the id
         $id = $request->input('id');
@@ -170,6 +182,16 @@ class GroupController extends Controller
              return view('group')->with([
                  'groups' => $groups 
              ]);
+        }
+        }catch(PDOException $e)
+        {
+            
+            // Log the pdo exception
+            AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+            //          // Log the database exception
+            throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
+            // return false;
+            return false;
         }
          
         

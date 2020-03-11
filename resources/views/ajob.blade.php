@@ -9,10 +9,10 @@
 <tr>
 <td>
 <br>
-<h1>Group Name:</h1>
+<h1>Position Title:</h1>
 <h2>{{$job->getJobTitle()}}</h2>
 <br>
-<h1>Group Discription:</h1>
+<h1>Company:</h1>
 <h3>{{$job->getCompany()}}</h3>
 <br>
 <h1>Job Description:</h1>

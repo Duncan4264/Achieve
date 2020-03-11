@@ -13,7 +13,7 @@
 @foreach($jobs as $job)
 <form action='adminAction' method="post">
 <input type="hidden" name = "_token" value = "{{csrf_token()}}" />
-    <h1>{{$job->getJobTitle()}}</h1>
+    <h1>{{$job->getJobTitle()}}</h1><h1>-----------------</h1><h2>{{$job->getCompany()}}</h2>
     <input type="hidden" name="id" value="{{$job->getId()}}">
     <input type="hidden" name="search" value="{{$search}}">
     

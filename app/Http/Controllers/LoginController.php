@@ -102,11 +102,23 @@ class LoginController extends Controller
  }
  public function Logout(Request $request)
  {
+     try{
      AchieveLogger::info("Entering LoginController.logout()");
      $request->session()->forget('users');
      $request->session()->forget('admin');
      $request->session()->forget('suspended');
      AchieveLogger::info("exiting LoginController.logout()");
      return view('login');
+     }
+     catch(PDOException $e)
+     {
+         
+         // Log the pdo exception
+         AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+         //          // Log the database exception
+         throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
+         // return false;
+         return false;
+     }
  }
 }

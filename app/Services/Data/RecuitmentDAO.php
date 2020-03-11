@@ -245,7 +245,7 @@ class RecuitmentDAO
             // bind s to a wildcard search
             $s= "%$search%";
             // Query Statment
-            $stmt = $this->db->prepare("SELECT * FROM `JobPosting` WHERE `jobtitle` LIKE :search OR `jobtitle` LIKE :search");
+            $stmt = $this->db->prepare("SELECT * FROM `JobPosting` WHERE `jobtitle` LIKE :search OR `company` LIKE :search");
             // bind parameters
             $stmt->bindParam(':search', $s);
             // Execute Query Statement

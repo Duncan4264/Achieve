@@ -240,6 +240,7 @@ class JobController extends Controller
      */
     public function searchJob(Request $request)
     {
+        try{
         AchieveLogger::info("Entering JobController.searchJob()");
         // grab information input
       $search =  $request->input('search');
@@ -253,6 +254,16 @@ class JobController extends Controller
            'search' => $search
        ]);
        AchieveLogger::info("Exiting JobController.searchJob()");
+        }catch(PDOException $e)
+        {
+            
+            // Log the pdo exception
+            AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+            //          // Log the database exception
+            throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
+            // return false;
+            return false;
+        }
        
     }
     /*
@@ -260,6 +271,7 @@ class JobController extends Controller
      */
     public function displayaJob(Request $request)
     {
+        try{
         AchieveLogger::info("Entering JobController.displayJob()");
         // grab information input
         $search =  $request->input('search');
@@ -267,19 +279,30 @@ class JobController extends Controller
         // get the recruitment service
         $recruitmentService = new RecruitmentService();
         // search the job and jobService
-        $job = $recruitmentService->displayJob($id);
+        $job = $recruitmentService->displayPosting($id);
         // retirn view search results with jobs and what they searched for
         return view('ajob')->with([
             'job' => $job,
             'search' => $search
         ]);
         AchieveLogger::info("Exiting JobController.displayJob()");
+        }catch(PDOException $e)
+        {
+            
+            // Log the pdo exception
+            AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+            //          // Log the database exception
+            throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
+            // return false;
+            return false;
+        }
     }
     /*
      * Method to handle applying for a job
      */
     public function apply(Request $request)
     {
+        try{
         AchieveLogger::info("Entering JobController.apply()");
         // grab id input
         $name = $request->input('name');
@@ -287,6 +310,16 @@ class JobController extends Controller
             'name' => $name
         ]);
         AchieveLogger::info("Exiting JobController.aplly()");
+        }catch(PDOException $e)
+        {
+            
+            // Log the pdo exception
+            AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+            //          // Log the database exception
+            throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
+            // return false;
+            return false;
+        }
     }
     
     

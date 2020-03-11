@@ -152,7 +152,7 @@ class RecruitmentService
     /*
      * Method to make a connection to the database and display a job
      */
-    public function displayJob($id)
+    public function displayPosting($id)
     {
         AchieveLogger::info("Entering RecruitmentService.searchJob()");
         // create a new database connection

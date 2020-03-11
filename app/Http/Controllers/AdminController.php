@@ -74,12 +74,23 @@ class AdminController extends Controller
   */
  public function confirmDelete(Request $request)
  {
+     try{
      AchieveLogger::info("Entering AdminController.confrimDelete()");
      $id = $request->input('id');
      AchieveLogger::info("Exiting AdminController.confirmDelete()");
      return view('confirmDelete')->with([
          'id' => $id
      ]);
+     }catch(PDOException $e)
+     {
+         
+         // Log the pdo exception
+         AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+         //          // Log the database exception
+         throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
+         // return false;
+         return false;
+     }
 
      
      
@@ -89,6 +100,7 @@ class AdminController extends Controller
   */
  public function confirmSuspend(Request $request)
  {
+     try{
      AchieveLogger::info("Entering AdminController.confrimSuspend()");
       // Grab the id
      $id = $request->input('id');
@@ -97,6 +109,16 @@ class AdminController extends Controller
      return view('confirmSuspend')->with([
          'id' => $id
      ]);
+     } catch(PDOException $e)
+     {
+         
+         // Log the pdo exception
+         AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+         //          // Log the database exception
+         throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
+         // return false;
+         return false;
+     }
      
      
  }
@@ -105,6 +127,7 @@ class AdminController extends Controller
   */
  public function confirmUnsuspend(Request $request)
  {
+     try{
      AchieveLogger::info("Entering AdminController.confirmUnsuspend()");
      // grab id
      $id = $request->input('id');
@@ -113,12 +136,23 @@ class AdminController extends Controller
      return view('confirmUnsuspend')->with([
          'id' => $id
      ]); 
+     }catch(PDOException $e)
+     {
+         
+         // Log the pdo exception
+         AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+         //          // Log the database exception
+         throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
+         // return false;
+         return false;
+     }
  }
  /*
   * Method to delete Profile
   */
  public function deleteProfile(Request $request)
  {
+     try{
      AchieveLogger::info("Entering AdminController.deleteprofile()");
      // grab input id
      $id = $request->input('id');
@@ -137,6 +171,16 @@ class AdminController extends Controller
             'profile' => $profiles
         ]);
     }
+     }catch(PDOException $e)
+     {
+         
+         // Log the pdo exception
+         AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+         //          // Log the database exception
+         throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
+         // return false;
+         return false;
+     }
      
      
      
@@ -145,6 +189,7 @@ class AdminController extends Controller
   * Method to suspend Profile
   */
  public function suspendProfile(Request $request){
+     try{
      AchieveLogger::info("Entering AdminController.suspendProfile()");
      // grab profile id input
      $id = $request->input('id');
@@ -160,12 +205,23 @@ class AdminController extends Controller
          return view("admin")->with([
              'profile' => $profiles
          ]);
+     }catch(PDOException $e)
+     {
+         
+         // Log the pdo exception
+         AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+         //          // Log the database exception
+         throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
+         // return false;
+         return false;
+     }
  }
  /*
   * Method to unsuspend profile
   */
  public function unSuspendProfile(Request $request)
  {
+     try{
      AchieveLogger::info("Entering AdminController.suspendProfile()");
      // grab profile id input
      $id = $request->input('id');
@@ -180,6 +236,16 @@ class AdminController extends Controller
      return view("admin")->with([
          'profile' => $profiles
      ]);
+     }catch(PDOException $e)
+     {
+         
+         // Log the pdo exception
+         AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+         //          // Log the database exception
+         throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
+         // return false;
+         return false;
+     }
 
  }
  /*
@@ -293,6 +359,7 @@ class AdminController extends Controller
     */
    public function deleteJob(Request $request)
    {
+       try{
        AchieveLogger::info("Entering AdminController.deleteJob()");
        // grab input id
        $id = $request->input('id');
@@ -312,18 +379,39 @@ class AdminController extends Controller
                'job' => $jobs
            ]);
        }
+       }catch(PDOException $e)
+       {
+           
+           // Log the pdo exception
+           AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+           //          // Log the database exception
+           throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
+           // return false;
+           return false;
+       }
    }
    /*
     * Method to delete display confirm delete
     */
      public function confirmDeleteJob(Request $request)
      {
+         try{
          AchieveLogger::info("Entering AdminController.confrimDeleteJob()");
          $id = $request->input('id');
          AchieveLogger::info("Exiting AdminController.confrimDeleteJob()");
          return view('confirmdeleterecuritment')->with([
              'id' => $id
-         ]);   
+         ]);  
+         }catch(PDOException $e)
+         {
+             
+             // Log the pdo exception
+             AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+             //          // Log the database exception
+             throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
+             // return false;
+             return false;
+         }
      }
      /*
       * Edit recruitment method to edit job postings
@@ -334,7 +422,6 @@ class AdminController extends Controller
              AchieveLogger::info("Entering AdminController.editRecruitment()");
              // Grab recruitment edit form data
              // Validate form
-//              $this->validateForm($request);
              $jobTitle = $request->input('jobtitle');
              $company = $request->input('company');
              $description = $request->input('descripton');
