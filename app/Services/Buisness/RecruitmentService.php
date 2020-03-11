@@ -149,6 +149,29 @@ class RecruitmentService
         AchieveLogger::info("Exiting RecruitmentService.searchJob()");
         return $jobs;
     }
+    /*
+     * Method to make a connection to the database and display a job
+     */
+    public function displayJob($id)
+    {
+        AchieveLogger::info("Entering RecruitmentService.searchJob()");
+        // create a new database connection
+        $servername = config("database.connections.mysql.host");
+        $port = config("database.connections.mysql.port");
+        $username = config("database.connections.mysql.username");
+        $password = config("database.connections.mysql.password");
+        $dbname = config("database.connections.mysql.database");
+        // Make a new PDO connection
+        $db  = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
+        // PDO set attribute for error exceptions
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // Create a new recruitment data access object
+        $job = new RecuitmentDAO($db);
+        //find the job in the data access object
+        $jobs = $job->findJob($id);
+        AchieveLogger::info("Exiting RecruitmentService.searchJob()");
+        return $jobs;
+    }
     
 }
 

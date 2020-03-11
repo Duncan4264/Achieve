@@ -15,7 +15,7 @@
 <br>
 <h1>Group Discription:</h1>
 <h3>{{$group->getGroupDescripton()}}</h3>
-
+<br>
 <h1>Members in the group:</h1>
     @foreach ($members as $member)
 <h3>{{$member->getUserFirstName()}} {{$member->getUserLastName()}}</h3>

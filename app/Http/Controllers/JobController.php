@@ -247,12 +247,46 @@ class JobController extends Controller
        $recruitmentService = new RecruitmentService();
        // search the job and jobService
        $jobs = $recruitmentService->searchJob($search);
-       
+       // retirn view search results with jobs and what they searched for
        return view('searchresults')->with([
-           'jobs' => $jobs
+           'jobs' => $jobs,
+           'search' => $search
        ]);
        AchieveLogger::info("Exiting JobController.searchJob()");
        
+    }
+    /*
+     * Method to display a certain Job
+     */
+    public function displayaJob(Request $request)
+    {
+        AchieveLogger::info("Entering JobController.displayJob()");
+        // grab information input
+        $search =  $request->input('search');
+        $id = $request->input('id');
+        // get the recruitment service
+        $recruitmentService = new RecruitmentService();
+        // search the job and jobService
+        $job = $recruitmentService->displayJob($id);
+        // retirn view search results with jobs and what they searched for
+        return view('ajob')->with([
+            'job' => $job,
+            'search' => $search
+        ]);
+        AchieveLogger::info("Exiting JobController.displayJob()");
+    }
+    /*
+     * Method to handle applying for a job
+     */
+    public function apply(Request $request)
+    {
+        AchieveLogger::info("Entering JobController.apply()");
+        // grab id input
+        $name = $request->input('name');
+        return view('applied')->with([
+            'name' => $name
+        ]);
+        AchieveLogger::info("Exiting JobController.aplly()");
     }
     
     

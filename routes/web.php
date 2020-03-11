@@ -13,7 +13,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// Default route 
 Route::get('/', function () {
     return view('login');
 });
@@ -40,27 +40,31 @@ Route::get('/login', function () {
         });
         // Goes to the admin view
         Route::get('/admin', "AdminController@grabAllProfiles");
-        
+        // Goes to edit Education view
         Route::post('/editeducation', "EducationController@displayeditEducation");
-        
+        // Goes to edit Skill view
         Route::post('/editskill', "SkillController@displayeditSkill");
-        
+        // Goes to edit Job view
         Route::post('/editjob', "JobController@displayEditJob");
- 
+        // Goes to job admin view
         Route::get('/jobadmin', "AdminController@grabAllJobs");
-        
+        // Goes to create education view
         Route::get('/createeducation', function () {
            return view('createeducation'); 
         });
+        // Goes to create job view
        Route::get('/createjob', function () {
                 return view('createjob');
         });
+       // goes to create skill view
        Route::get('/createskill', function () {
                return view('createskill');
          });
+       // goes to create group view
            Route::get('/createGroup', function() {
                return view('createGroup');
            });
+           // goes to display all groups
        Route::get('/groups', "GroupController@displayGroup");
                  
 
@@ -130,6 +134,12 @@ Route::post('/leaveGroup', "MemberController@leaveGroup");
 Route::post('/showGroup', "GroupController@showGroup");
 // Job Controller to search Jobs
 Route::post('/search', "JobController@searchJob");
+//Job Controller to Display Job
+Route::post('/displayjob', "JobController@displayajob");
+// Job Controller to Handle Cancel Applying
+Route::post('/cancelJob', "JobController@searchJob");
+// Job Controller to Handle Applying for a Job
+Route::post('/apply', "JobController@apply");
 
 // Routes to logouts
 Route::get('/logout', "LoginController@logout");

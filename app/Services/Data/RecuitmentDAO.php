@@ -237,7 +237,7 @@ class RecuitmentDAO
      */
     public function findJobName($search)
     {
-//         try{
+        try{
             AchieveLogger::info("Entering RecuitmentDAO.JobName()");
             // Create a new array object
             $jobs = new \ArrayObject();
@@ -245,7 +245,7 @@ class RecuitmentDAO
             // bind s to a wildcard search
             $s= "%$search%";
             // Query Statment
-            $stmt = $this->db->prepare("SELECT * FROM `JobPosting` WHERE `jobtitle` LIKE :search");
+            $stmt = $this->db->prepare("SELECT * FROM `JobPosting` WHERE `jobtitle` LIKE :search OR `jobtitle` LIKE :search");
             // bind parameters
             $stmt->bindParam(':search', $s);
             // Execute Query Statement
@@ -271,18 +271,17 @@ class RecuitmentDAO
                 AchieveLogger::info("Exiting RecuitmentDAO.findJobName()");
                 // Return array of jobs
                 return $jobs;
-                
             }
-        }
-//         } catch(PDOException $e)
-//         {
+        } catch(PDOException $e)
+        {
             
-//             // Log the pdo exception
-//             AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
-//             //          // Log the database exception
-//             throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
-//             // return false;
-//             return false;
-//         }
+            // Log the pdo exception
+            AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+            //          // Log the database exception
+            throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
+            // return false;
+            return false;
+        }
     }
+}
 
