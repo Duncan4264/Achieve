@@ -104,6 +104,11 @@ return [
             'rule-name' => 'custom-message',
         ],
     ],
+    'registered' => [
+        'register' => [
+            'register' => 'User already exists',
+        ],
+    ],
 
     /*
     |--------------------------------------------------------------------------

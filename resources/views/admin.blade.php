@@ -3,6 +3,7 @@
 
 @section('content')
 
+ @if(Session::has('admin'))
 <table>
 <tr>
 <td>
@@ -21,6 +22,7 @@
 </td>
 </tr>
 </table>
+@endif
 
 
 

@@ -7,7 +7,12 @@
             <div class="image-holder"></div>
             <form method="post" action= "processRegister">
                 <h2 class="text-center"><strong>Create</strong> an account.</h2>
-                <input type="hidden" name = "_token" value = "<?php echo csrf_token()?>" />
+                <input type="hidden" name = "_token" value = "<?php echo csrf_token() ?>" />
+              @if($errors->count() != 0)
+            @foreach($errors->all() as $message)
+	      {{ $message }} <br/>
+        @endforeach
+         @endif	
                 <div class="form-group"><input class="form-control" type="text" name="firstname" placeholder="First Name" maxlength=20></div>
                 <div class="form-group"><input class="form-control" type="text" name="lastname" placeholder="Last Name" maxlength=20></div>
                 <div class="form-group"><input class="form-control" type="text" name="username" placeholder="Username" maxlength=20></div>

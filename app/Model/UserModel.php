@@ -13,13 +13,13 @@ class UserModel
     private $password;
     private $email;
     private $role;
-    private $id;
+
     
     
     /*
      * Constructor to inialize the variables
      */
-    public function __construct($firstname, $lastname, $username, $password, $email, $id, $role)
+    public function __construct($firstname, $lastname, $username, $password, $email)
     {
         //commands to inialize the variables
         $this->firstname = $firstname;
@@ -27,15 +27,9 @@ class UserModel
         $this->username = $username;
         $this->password = $password;
         $this->email = $email;
-        $this->id = $id;
-        $this->role = $role;
     }
     
     
-    public function getID()
-    {
-        return $this->id;
-    }
     
     /*
      * Method to return the role

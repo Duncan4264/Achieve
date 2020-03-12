@@ -11,15 +11,24 @@ class CredentialModel
     private $username;
     private $password;
     private $id;
+    private $role;
     
     /*
      * Constructor to inizialize varaibles
      */
-    public function __construct($username, $password, $id) 
+    public function __construct($username, $password, $id, $role) 
     {
         $this->username = $username;
         $this->password = $password;
         $this->id = $id;
+        $this->role = $role;
+    }
+    /*
+     * Method to get role
+     */
+    public function getRole()
+    {
+       return $this->role; 
     }
     /*
      * Method to get username

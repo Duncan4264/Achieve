@@ -51,8 +51,7 @@ class RegisterController extends Controller
       $role = null; 
       
       // Create a new User object
- $user = new UserModel($firstname, $lastname, $username, $password, $email, $role);
-      
+ $user = new UserModel($firstname, $lastname, $username, $password, $email); 
       // Create a new security service object
       $sc = new UserService();
       // Check to see if the user is registered

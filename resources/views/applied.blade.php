@@ -7,6 +7,10 @@
 
 <h1>Congratulations! You have applied for {{$name}}</h1>
 
+<form name="showAction" name="showHome" method="get">
+<button formaction="profile" name="show">show Profile</button>
+</form>
+
 @endif
 
 
