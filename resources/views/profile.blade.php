@@ -65,9 +65,8 @@
                             </br>
                       @endforeach    
                         </div>
-                        <form action='skillAction' method="GET">
                           <input type="submit" class="profile-edit-btn" name="createSkill" formaction="createskill" value="Create Skill"/>
-                            </form>
+                            
        
                     </div>
                  
@@ -223,16 +222,16 @@
                                 </br>
                                 </form>
                                   @endforeach
-                                 
-                               
-                               <div class="tab-pane fade" id="job" role="tabpanel" aria-labelledby="profile-tab">
-                                           <div class="row">
+                                   <form action='jobAction' method="get">
+                                     <input type="hidden" name = "_token" value = "<?php echo csrf_token()?>" />
+                                 <div class="row">
                                     <div class="col-md-11">
-                                        <input type="submit" class="profile-edit-btn" name="createjob" formaction="createjob" value="Create Job"/>
+                                        <input type="submit" class="profile-edit-btn" name="createJob" formaction="createjob" value="Create Job"/>
                                     </div>   
-                                     
+                                    
                                 </div>
                                 </form>
+                            
                             </div>
                             
                             

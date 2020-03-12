@@ -109,7 +109,8 @@ class GroupController extends Controller
             {
                 // return the group view with id and Education data
                 return view("group")->with([
-                    'groups' => $groups
+                    'groups' => $groups,
+                    'id' => $id
                 ]);
             }
         } catch(ValidationException $e1){
@@ -180,7 +181,8 @@ class GroupController extends Controller
         {
             // return group with groups information
              return view('group')->with([
-                 'groups' => $groups 
+                 'groups' => $groups,
+                 'id' => $id
              ]);
         }
         }catch(PDOException $e)

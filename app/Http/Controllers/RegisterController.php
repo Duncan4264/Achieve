@@ -51,7 +51,7 @@ class RegisterController extends Controller
       $role = null; 
       
       // Create a new User object
- $user = new UserModel($firstname, $lastname, $username, $password, $email); 
+      $user = new UserModel($firstname, $lastname, $username, $password, $email); 
       // Create a new security service object
       $sc = new UserService();
       // Check to see if the user is registered
@@ -83,6 +83,15 @@ class RegisterController extends Controller
     }
       } catch(ValidationException $e1){
           throw $e1;
-      }
+      } catch(PDOException $e)
+    {
+        
+        // Log the pdo exception
+        AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+        //          // Log the database exception
+        throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
+        // return false;
+        return false;
+}
   }
 }

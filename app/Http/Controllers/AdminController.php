@@ -337,7 +337,7 @@ class AdminController extends Controller
            $jobs = $service->getAllJobs($id);
            // return view admin with all profiles and role passed into it
            AchieveLogger::info("Exiting AdminController.grabAllProfiles()");
-           return view("jobAdmin")->with([
+           return view("jobadmin")->with([
                'job' => $jobs,
                'role' => $role
            ]);
