@@ -41,11 +41,11 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', 'localhost'),
-            'port' => env('DB_PORT', '8889'),
-            'database' => env('DB_DATABASE', 'dropnshop'),
-            'username' => env('DB_USERNAME', 'root'),
-            'password' => env('DB_PASSWORD', 'root'),
+            'host' => env('DB_HOST', 'k3xio06abqa902qt.cbetxkdyhwsb.us-east-1.rds.amazonaws.com'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_DATABASE', 'y11m60s4j6yrkbfv'),
+            'username' => env('DB_USERNAME', 'mz7i0nllv1hctx24'),
+            'password' => env('DB_PASSWORD', 'k9wgpa63a86hlfqq'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
