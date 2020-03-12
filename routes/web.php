@@ -58,7 +58,7 @@ Route::get('/login', function () {
         });
        // goes to create skill view
        Route::get('/createskill', function () {
-               return view('createskill');
+               return view('createSkill');
          });
        // goes to create group view
            Route::get('/createGroup', function() {
