@@ -65,7 +65,7 @@
                             </br>
                       @endforeach    
                         </div>
-                        <form action='skillAction' method="POST">
+                        <form action='skillAction' method="GET">
                           <input type="submit" class="profile-edit-btn" name="createSkill" formaction="createskill" value="Create Skill"/>
                             </form>
        
