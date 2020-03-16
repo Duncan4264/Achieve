@@ -25,7 +25,7 @@ class SecureWare
         // Create variable for security check
         $secureCheck = true;
         // create business rules that check all of the URI's
-        if($request->is('/') || $request->is('register') || $request->is('login') || $request->is('processLogin') || $request->is('logout'))
+        if($request->is('/') || $request->is('register') || $request->is('processRegister') || $request->is('login') || $request->is('processLogin') || $request->is('logout'))
         {
             $secureCheck = false;
         }
