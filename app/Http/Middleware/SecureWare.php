@@ -35,8 +35,7 @@ class SecureWare
         // if secure check is true
         if($secureCheck && Session::get('users') == null)
         {
-            // redirect to login3
-            dd(session()->all());
+            // redirect to login
             AchieveLogger::info("Leaving SecureWare in handle() doing a redirect back to login");
             return redirect('/login');
         }
