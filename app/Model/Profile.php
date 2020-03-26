@@ -4,7 +4,7 @@
 // This is my own work
 namespace App\Model;
 
-class Profile
+class Profile implements \JsonSerializable
 {
     // Private variables that make up the profile object
     private $firstname;
@@ -19,7 +19,7 @@ class Profile
 /*
  *  Constructor that inizializes the profile variables
  */
-    public function __construct($firstname, $lastname, $country, $state, $city, $street, $zip)
+    public function __construct($firstname, $lastname, $country, $state, $city, $street, $zip, $id)
     {
         $this->firstname = $firstname;
         $this->lastname = $lastname;
@@ -28,6 +28,7 @@ class Profile
         $this->city = $city;
         $this->street = $street;
         $this->zip = $zip;
+        $this->id = $id;
     }
     /*
      * returns the first name
@@ -82,6 +83,15 @@ class Profile
     {
         return $this->id;
     }
+    /*
+     * Method to serialze object into json
+     */
+    public function jsonSerialize()
+    {
+        // return this object variables in json
+        return get_object_vars($this);
+    }
+
     
 }
 

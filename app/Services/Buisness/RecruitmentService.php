@@ -10,7 +10,7 @@ class RecruitmentService
     /*
      * Buisness logic to find all Jobs
      */
-    public function getAllJobs($id)
+    public function getAllJobs()
     {
         AchieveLogger::info("Entering RecruitmentService.getAllJobs()");
         // create a new database connection
@@ -25,7 +25,7 @@ class RecruitmentService
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         // Create a new recruitment data access object
         $job = new RecuitmentDAO($db);
-        $profiles = $job->findAllJobs($id);
+        $profiles = $job->findAllJobs();
         AchieveLogger::info("Exiting RecruitmentService.getAllJobs()");
         return $profiles;
         

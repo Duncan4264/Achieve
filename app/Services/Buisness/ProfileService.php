@@ -99,9 +99,38 @@ class ProfileService
             $createProfile = $service->createProfile($profile, $id);
         }
         AchieveLogger::info("Exiting ProfileService.myProfile()");
+        
+        // close db connection
+        $db = null;
         // return user
         return $profile;
         
+    }
+    /*
+     * Grabs profile by id without creating a new profile if null
+     */
+    public function myProfileID($id)
+    {
+        AchieveLogger::info("Entering ProfileService.myProfile()");
+        // create a new database connection
+        $servername = config("database.connections.mysql.host");
+        $port = config("database.connections.mysql.port");
+        $username = config("database.connections.mysql.username");
+        $password = config("database.connections.mysql.password");
+        $dbname = config("database.connections.mysql.database");
+        // Make a new PDO connection
+        $db  = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
+        // PDO set attribute for error exceptions
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // Create a new profile data access layer
+        $service = new ProfileDAO($db);
+        // Grab a specfic user from  profile data access layer
+        $profile = $service->findProfileID($id);
+        AchieveLogger::info("Exiting ProfileService.myProfile()");
+        // close db connection
+        $db = null;
+        // return user
+        return $profile;
     }
     /*
      * Buisness logic to find all profiles

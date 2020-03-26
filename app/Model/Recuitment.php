@@ -1,7 +1,7 @@
 <?php
 namespace App\Model;
 
-class Recuitment
+class Recuitment implements \JsonSerializable
 {
     // Grab Recruitment Variables
     private $jobTitle;
@@ -72,6 +72,15 @@ class Recuitment
     {
         return $this->id;
     }
+    /*
+     * Method to serialze object into json
+     */
+    public function jsonSerialize()
+    {
+        // return this object variables in json
+        return get_object_vars($this);
+    }
+    
     
     
 }

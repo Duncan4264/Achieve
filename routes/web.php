@@ -144,6 +144,11 @@ Route::post('/apply', "JobController@apply");
 // Routes to logouts
 Route::get('/logout', "LoginController@logout");
 
+// Routes to get profile rest service
+Route::resource('/profilerest', 'ProfileRestController');
+// Routes to get job rest service
+Route::resource('/jobrest', 'JobRestController');
+
 
 
 

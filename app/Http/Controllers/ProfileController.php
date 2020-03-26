@@ -54,7 +54,7 @@ class ProfileController extends Controller
        $street = $request->input('street');
        $zip = $request->input('zip');
        // Create a new profile model
-       $profile = new Profile($firstname, $lastname, $country, $state, $city, $street, $zip);
+       $profile = new Profile($firstname, $lastname, $country, $state, $city, $street, $zip, -1);
        
        // Create a new Profile Service Object
        $sc = new ProfileService();
@@ -181,7 +181,7 @@ class ProfileController extends Controller
        $street = $request->input('street');
        $zip = $request->input('zip');
        // Create a new profile object
-       $p = new Profile($firstname, $lastname, $country, $state, $city, $street, $zip);
+       $p = new Profile($firstname, $lastname, $country, $state, $city, $street, $zip, -1);
        // Grab id session
        $id = Session::get('ID');
        // create a new profile service 

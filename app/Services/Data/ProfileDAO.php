@@ -88,7 +88,7 @@ class ProfileDAO
                 //fetch the data from the pdo statement
                 $data = $stmt->fetch(PDO::FETCH_ASSOC);
                 // Pass it in a data array and make a new profile object
-                $profile= new Profile($data['firstname'], $data['lastname'], $data['country'], $data['state'], $data['city'], $data['street'], $data['zip'], $data['status']);
+                $profile= new Profile($data['firstname'], $data['lastname'], $data['country'], $data['state'], $data['city'], $data['street'], $data['zip'], $data['status'], $data['id']);
                 // return the new profile object
                 AchieveLogger::info("Exiting ProfileDAO.findProfile()");
                 return $profile;
@@ -100,6 +100,45 @@ class ProfileDAO
                 // return null
                 return null;
             }
+            } catch(PDOException $e)
+            {
+                
+                // Log the pdo exception
+                AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+                //          // Log the database exception
+                throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
+                return false;
+                return false;
+            }
+        }
+        
+        /*
+         * Method to find specific profile by id
+         */
+        public function findProfileID($id)
+        {
+            try {
+                AchieveLogger::info("Entering ProfileDAO.findProfileID()");
+                // Use PDO Statement to grab profile from database
+                $stmt = $this->db->prepare("SELECT `id`, `firstname`, `lastname`, `country`, `state`, `city`, `street`, `zip`, `status`, `Users_id` FROM `Profiles` WHERE `id` = 11");
+                // Bind the parameter
+                $stmt->bindParam(':id', $id);
+                // Run the query
+                $stmt->execute();
+                // If the query found something
+                if($stmt->rowCount() == 0)
+                {
+                    AchieveLogger::info("Exit ProfileDAO.findByProfileID() with false");
+                    return null;
+                }
+                else
+                {   
+                 //fetch the data from the pdo statement
+                  $data = $stmt->fetch(PDO::FETCH_ASSOC);
+                  // Pass it in a data array and make a new profile object
+                $profile = new Profile($data['firstname'], $data['lastname'], $data['country'], $data['state'], $data['city'], $data['street'], $data['zip'], $data['id']);
+                 return $profile;
+                }
             } catch(PDOException $e)
             {
                 
@@ -277,7 +316,7 @@ class ProfileDAO
                 while($data = $stmt->fetch(PDO::FETCH_ASSOC))
                 {
                     // Create a new profie object that adds each data item found into a new data profile
-                    $profile = new Profile($data['firstname'], $data['lastname'], $data['id'], $data['state'], $data['city'], $data['street'], $data['zip'], $data['status'], $data['Users_id']);
+                    $profile = new Profile($data['firstname'], $data['lastname'], $data['id'], $data['state'], $data['city'], $data['street'], $data['zip'], $data['status'], $data['Users_id'], $data['id']);
                   
                     if($data['Users_id'] != $id)
                     {
