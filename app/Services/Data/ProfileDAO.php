@@ -120,7 +120,7 @@ class ProfileDAO
             try {
                 AchieveLogger::info("Entering ProfileDAO.findProfileID()");
                 // Use PDO Statement to grab profile from database
-                $stmt = $this->db->prepare("SELECT `id`, `firstname`, `lastname`, `country`, `state`, `city`, `street`, `zip`, `status`, `Users_id` FROM `Profiles` WHERE `id` = 11");
+                $stmt = $this->db->prepare("SELECT `id`, `firstname`, `lastname`, `country`, `state`, `city`, `street`, `zip`, `status`, `Users_id` FROM `Profiles` WHERE `id` = :id");
                 // Bind the parameter
                 $stmt->bindParam(':id', $id);
                 // Run the query

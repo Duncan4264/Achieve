@@ -39,7 +39,7 @@ class LoginController extends Controller
     /*
      * Login method to process Logging in
      */
- public function  onLogin(Request $request)
+ public function onLogin(Request $request)
  {
      try {
          AchieveLogger::info("Entering LoginController.onLogin()");

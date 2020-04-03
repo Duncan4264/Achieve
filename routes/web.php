@@ -75,7 +75,7 @@ Route::post('/processAnnotation', "ProfileController@onAnnotate");
 // Routes to the Register controller after submitting register forum
 Route::post('/processRegister', "RegisterController@onRegister");
 // Routes to the login controller after submitting the login forum
-Route::get('/processLogin', "LoginController@onLogin");
+Route::post('/processLogin', "LoginController@onLogin");
 // Routes to the admin controller Confermation Method after submitting the admin request
 Route::post('/adminAction', "AdminController@onConfirm");
 

@@ -63,7 +63,7 @@ class RegisterController extends Controller
      
       if($registered)
       {
-          return view ("register")->withErrors(['', 'User already exists!']);
+          return view("register")->withErrors(['', 'User already exists!']);
       }
       
       // Pass data into Security service object method.

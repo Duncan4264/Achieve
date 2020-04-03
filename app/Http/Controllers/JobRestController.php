@@ -22,8 +22,15 @@ class JobRestController extends Controller
             $service = new RecruitmentService();
             // Grab all jobs
             $jobs = $service->getAllJobs();
-            // create a DTO
+            // Create a DAO
+            if($jobs == null)
+            {
+                $dto = new DTO(-1, "Jobs Not Found", "");
+            }
+            else 
+            {
             $dto = new DTO(0, "OK", $jobs);
+            }
             // encode dto object to json
             $json = json_encode($dto);
             // return json
