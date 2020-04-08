@@ -91,6 +91,9 @@ class SkillController extends Controller
             ]);
         } catch(ValidationException $e1){
             throw $e1;
+        } catch(\Exception $e2)
+        {
+            return view('systemException');
         }
     }
     /*
