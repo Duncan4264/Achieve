@@ -264,7 +264,7 @@ class AdminController extends Controller
       
        AchieveLogger::info("Exiting AdminController.displayeditRecruitment()");
        // return the editRecruitment view with id and profile data
-       return view("editrecruitment")->with([
+       return view("editRecruitment")->with([
            'id' => $id,
            'job' => $job,
        ]);
@@ -301,14 +301,14 @@ class AdminController extends Controller
            AchieveLogger::info("Exiting AdminController.createJob()");
            if($job)
            {
-               return view("jobadmin")->with([
+               return view("jobAdmin")->with([
                    'job' => $jobs,
                    'role' => $role
                ]);
            }
            else
            {
-               return view("jobadmin")->with([
+               return view("jobAdmin")->with([
                    'job' => $jobs,
                    'role' => $role
                ]);
@@ -337,7 +337,7 @@ class AdminController extends Controller
            $jobs = $service->getAllJobs($id);
            // return view admin with all profiles and role passed into it
            AchieveLogger::info("Exiting AdminController.grabAllProfiles()");
-           return view("jobadmin")->with([
+           return view("jobAdmin")->with([
                'job' => $jobs,
                'role' => $role
            ]);
@@ -375,7 +375,7 @@ class AdminController extends Controller
            
            AchieveLogger::info("Exiting AdminController.deleteJob()");
            // pass it into admin
-           return view("jobadmin")->with([
+           return view("jobAdmin")->with([
                'job' => $jobs
            ]);
        }
@@ -443,7 +443,7 @@ class AdminController extends Controller
                  $jobs = $service->getAllJobs($id);
                  // return view admin with all Jobs and role passed into it
                  AchieveLogger::info("Exiting AdminController.grabAllProfiles()");
-                 return view("jobadmin")->with([
+                 return view("jobAdmin")->with([
                      'job' => $jobs,
                      'role' => $role
                  ]);
