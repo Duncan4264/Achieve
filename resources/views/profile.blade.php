@@ -56,11 +56,11 @@
                         <div class="profile-work">
                             <p>SKILLS</p>
                             @foreach ($skills as $skill)
-                             <form action='skillAction' method="POST">
-                              <input type="hidden" name="id" value="{{$skill->getId()}}"/>
-                              <input type="hidden" name = "_token" value = "<?php echo csrf_token()?>" />
                             <a href="">{{$skill->getSkill()}}</a><br/>
-                            <input type="submit" class="profile-edit-btn" name="editSkills" formaction="editskill" value="Edit Skill"/>
+                             <form action='skillAction' method="POST">
+                             <input type="hidden" name="id" value="{{$skill->getId()}}"/>
+                            <input type="hidden" name = "_token" value = "<?php echo csrf_token()?>" />
+                            <input type="submit" class="profile-edit-btn" name="editSkill" formaction="editskill" formmethod="post" value="Edit Skill"/>
                             </form>
                             </br>
                       @endforeach    

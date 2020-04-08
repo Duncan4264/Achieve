@@ -8,6 +8,10 @@
 <input type="hidden" name = "_token" value = "{{csrf_token()}}" />
 <button type="submit" name="Create" formaction="createRecruitment">Create Job Post</button>
     </form>
+@if($job == null)
+<h1>No Active Job Postings</h1>
+@endif
+@if($job != null)
 <table>
 <tr>
 <td>
@@ -25,6 +29,7 @@
 </td>
 </tr>
 </table>
+@endif
 @endif
 
 
