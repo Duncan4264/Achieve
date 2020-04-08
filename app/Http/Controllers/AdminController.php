@@ -264,7 +264,7 @@ class AdminController extends Controller
       
        AchieveLogger::info("Exiting AdminController.displayeditRecruitment()");
        // return the editRecruitment view with id and profile data
-       return view("editRecruitment")->with([
+       return view("editrecruitment")->with([
            'id' => $id,
            'job' => $job,
        ]);
