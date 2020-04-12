@@ -10,6 +10,32 @@ use App\Services\Utility\AchieveLogger;
 
 class ProfileRestController extends Controller
 {
+    /**
+     * Returns no profile ID given when trying to get a profile
+     */
+    public function index()
+    {
+        try{
+           $dto = new DTO(-1, "No Profile ID Given", "");
+            // encode dto object to json
+            $json = json_encode($dto);
+            // return json
+            return $json;
+            // catch the exception
+        } catch(Exception $e1)
+        {
+            // log the excetpion
+            AchieveLogger::error("Exception: ", array("message" => $e1->getMessage()));
+            
+            // return DTO back to the user DTO
+            $dto = new DTO(-2, $e1->getMessage(), "");
+            // encode to json
+            return json_encode($dto);
+        }
+    }
+    /*
+     * Grabs a profile by id and converts it into JSON.
+     */
     public function show($id)
     {
         try {

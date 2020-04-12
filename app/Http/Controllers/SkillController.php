@@ -85,7 +85,7 @@ class SkillController extends Controller
             
             AchieveLogger::info("Entering SkillController.displayEditSkill()");
             // return the editSkill view with id and profile data
-            return view("editSkill")->with([
+            return view("editskill")->with([
                 'id' => $id,
                 'skill' => $skill
             ]);

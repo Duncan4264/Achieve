@@ -36,7 +36,7 @@
  </tr>
  <tr>
     <td colspan = "2" align = "center">
-        <input type = "submit" value = "Edit Job" /> 
+        <input type = "submit" value = "Create Job" /> 
         </td>
  </tr>
 </table>

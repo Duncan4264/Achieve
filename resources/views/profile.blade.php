@@ -55,15 +55,17 @@
                     <div class="col-md-4">
                         <div class="profile-work">
                             <p>SKILLS</p>
+                            @if($skills != null)
                             @foreach ($skills as $skill)
-                            <a href="">{{$skill->getSkill()}}</a><br/>
                              <form action='skillAction' method="POST">
-                             <input type="hidden" name="id" value="{{$skill->getId()}}"/>
-                            <input type="hidden" name = "_token" value = "<?php echo csrf_token()?>" />
-                            <input type="submit" class="profile-edit-btn" name="editSkill" formaction="editskill" formmethod="post" value="Edit Skill"/>
+                              <input type="hidden" name="id" value="{{$skill->getId()}}"/>
+                              <input type="hidden" name = "_token" value = "<?php echo csrf_token()?>" />
+                            <a href="">{{$skill->getSkill()}}</a><br/>
+                            <input type="submit" class="profile-edit-btn" name="editSkills" formaction="editskill" value="Edit Skill"/>
                             </form>
                             </br>
-                      @endforeach    
+                      @endforeach  
+                      @endif  
                         </div>
                           <input type="submit" class="profile-edit-btn" name="createSkill" formaction="createskill" value="Create Skill"/>
                             
@@ -115,6 +117,7 @@
                                         </div>
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                              @if($educations != null)
                               @foreach ($educations as $education)
                               <form action='educationAction' method="POST">
                               <input type="hidden" name="id" value="{{$education->getId()}}"/>
@@ -164,18 +167,22 @@
                                  </br>
                                  </form>
                                      @endforeach
-                                      <form action='educationAction' method="POST">
+                                     @endif
+                                      <form action='educationAction' method="get">
                                  <div class="row">
                                     <div class="col-md-11">
+                                    <input type="hidden" name = "_token" value = "<?php echo csrf_token()?>" />
                                         <input type="submit" class="profile-edit-btn" name="createeducation" formaction="createeducation" value="Create Education"/>
                                     </div>   
                                     
                                 </div>
                                 </form>
+                                
                             </div>
 
                             
                              <div class="tab-pane fade" id="job" role="tabpanel" aria-labelledby="profile-tab">
+                             @if($jobs != null)
                              @foreach ($jobs as $job)
                              <form action='jobAction' method="post">
                               <input type="hidden" name = "_token" value = "<?php echo csrf_token()?>" />
@@ -222,6 +229,7 @@
                                 </br>
                                 </form>
                                   @endforeach
+                                  @endif
                                    <form action='jobAction' method="get">
                                      <input type="hidden" name = "_token" value = "<?php echo csrf_token()?>" />
                                  <div class="row">

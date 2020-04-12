@@ -11,9 +11,7 @@ use App\Services\Buisness\RecruitmentService;
 class JobRestController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Grabs all of the jobs and converts them into JSON
      */
     public function index()
     {
@@ -48,10 +46,7 @@ class JobRestController extends Controller
         }
     }
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Grabs a certian job and converts it into JSON
      */
     public function show($id)
     {

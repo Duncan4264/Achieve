@@ -95,7 +95,7 @@ class JobController extends Controller
             
             AchieveLogger::info("Exiting JobController.displayEditJob()");
             // return the editJob view with id and profile data
-            return view("editJob")->with([
+            return view("editjob")->with([
                 'id' => $id,
                 'jobs' => $job
             ]);

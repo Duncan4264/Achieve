@@ -172,7 +172,7 @@ class EducationController extends Controller
                    return view("profile")->with([
                        'id' => $id,
                        'profile' => $profile,
-                       'education' => $education,
+                       'educations' => $education,
                        'skills' => $skill,
                        'jobs' => $job
                    ]);

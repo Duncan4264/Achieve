@@ -16,22 +16,35 @@ use App\Model\CredentialModel;
 use PDOException;
 use App\Services\Utility\AchieveLogger;
 use App\Services\Utility\DatabaseException;
+use App\Services\Utility\AchieveLoggerService;
 
 class LoginController extends Controller
 {
+    // Logger variable 
+    protected $logger;
+    
+    /*
+     * Constructor to inizalize logger variable with achieve logger service
+     */
+    public function __construct(AchieveLoggerService $logger)
+    {
+        $this->logger = $logger;
+    }
     /*
      * Method to validate form
      */
     public function validateForm(Request $request)
     {
-        AchieveLogger::info("Entering LoginController.validateForm()");
+        // call the logger and make info we are in the validateForm
+        $this->logger->info("Entering LoginController.validateForm()");
         // rules to validate form
         $rules = ['username' => 'required|string|max:255|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
             'password' => 'required', 
                'min:6', 
                'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!$#%]).*$/', 
                'confirmed'];
-        AchieveLogger::info("Exiting LoginController.validateForm()");
+        // call the logger and make info we are exiting validateForm
+        $this->logger->info("Exiting LoginController.validateForm()");
         // call framework validation
         $this->validate($request, $rules);
     }
@@ -42,7 +55,8 @@ class LoginController extends Controller
  public function onLogin(Request $request)
  {
      try {
-         AchieveLogger::info("Entering LoginController.onLogin()");
+         // call the logger and make info we are entering onLogin()
+         $this->logger->info("Entering LoginController.onLogin()");
          $this->validateForm($request);
      // Call the form data
      $username = $request->input('username');
@@ -73,9 +87,8 @@ class LoginController extends Controller
              Session::put('admin', $role);
          }
          
-        
-         
-         AchieveLogger::info("Exiting LoginController.onLogin()");
+        // call the logger service to exiting the loginController
+         $this->logger->info("Exiting LoginController.onLogin()");
          // return view feed
          return view('feed');
      }
