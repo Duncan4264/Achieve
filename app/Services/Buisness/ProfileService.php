@@ -95,7 +95,7 @@ class ProfileService
         if($profile == null)
         { 
             // create new profile with NA to print not avaiable
-            $profile = new Profile("NA", "NA", "NA", "NA", "NA", "NA", "NA");
+            $profile = new Profile("NA", "NA", "NA", "NA", "NA", "NA", "NA", -1);
             $createProfile = $service->createProfile($profile, $id);
         }
         AchieveLogger::info("Exiting ProfileService.myProfile()");
