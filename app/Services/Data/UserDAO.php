@@ -67,7 +67,6 @@ class UserDAO
 //          // return false;
 //           return false;
 //         }
-    }
     /*
      * Method to find a user
      */
