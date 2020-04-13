@@ -58,15 +58,15 @@ class UserDAO
        
         }
         // catch if the statement fails and pass through a PDOException peramator
-//         catch(PDOException $e)
-//         {
-//             // Log the pdo exception
-//             AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
-// //          // Log the database exception
-//          throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
+        catch(PDOException $e)
+        {
+           // Log the pdo exception
+           AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+          // Log the database exception
+         throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
 //          // return false;
-//           return false;
-//         }
+         return false;
+       }
     /*
      * Method to find a user
      */
