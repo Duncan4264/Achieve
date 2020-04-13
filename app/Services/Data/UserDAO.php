@@ -35,7 +35,7 @@ class UserDAO
         $lastname = $user->getLastname();
         $email = $user->getEmail();
         $role = $user->getRole();
-//         try {
+         try {
          // PDO statement to insert the user into the Users table
         $stmt = $this->db->prepare('INSERT 
        INTO `Users`
