@@ -20,16 +20,16 @@ use App\Services\Utility\AchieveLoggerService;
 
 class LoginController extends Controller
 {
-    // Logger variable 
-    protected $logger;
+     // Logger variable 
+//     protected $logger;
     
-    /*
-     * Constructor to inizalize logger variable with achieve logger service
-     */
-    public function __construct(AchieveLoggerService $logger)
-    {
-        $this->logger = $logger;
-    }
+//     /*
+//      * Constructor to inizalize logger variable with achieve logger service
+//      */
+//     public function __construct(AchieveLoggerService $logger)
+//     {
+//         $this->logger = $logger;
+//     }
     /*
      * Method to validate form
      */
