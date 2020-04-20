@@ -95,7 +95,7 @@ class JobController extends Controller
             
             AchieveLogger::info("Exiting JobController.displayEditJob()");
             // return the editJob view with id and profile data
-            return view("editjob")->with([
+            return view("editJob")->with([
                 'id' => $id,
                 'jobs' => $job
             ]);
@@ -249,7 +249,7 @@ class JobController extends Controller
        // search the job and jobService
        $jobs = $recruitmentService->searchJob($search);
        // retirn view search results with jobs and what they searched for
-       return view('searchresults')->with([
+       return view('searchResults')->with([
            'jobs' => $jobs,
            'search' => $search
        ]);
