@@ -1,4 +1,3 @@
-namespace App\Model; 
 <?php
 namespace App\Model; 
 // Cyrus Duncan
