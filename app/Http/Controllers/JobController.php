@@ -249,7 +249,7 @@ class JobController extends Controller
        // search the job and jobService
        $jobs = $recruitmentService->searchJob($search);
        // retirn view search results with jobs and what they searched for
-       return view('searchResults')->with([
+       return view('searchresults')->with([
            'jobs' => $jobs,
            'search' => $search
        ]);
