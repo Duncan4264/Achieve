@@ -56,7 +56,7 @@
                               <input type="hidden" name="id" value="{{$skill->getId()}}"/>
                               <input type="hidden" name = "_token" value = "<?php echo csrf_token()?>" />
                             <a href="">{{$skill->getSkill()}}</a><br/>
-                            <input type="submit" class="profile-edit-btn" name="editSkills" formaction="editskill" value="Edit Skill"/>
+                            <input type="submit" class="profile-edit-btn" name="editSkills" formaction="editskill" formmethod="post" value="Edit Skill"/>
                             </form>
                             </br>
                       @endforeach  
@@ -152,7 +152,7 @@
                                         </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <input type="submit" class="profile-edit-btn" name="editeducation" formaction="editeducation" value="Edit Education"/>
+                                        <input type="submit" class="profile-edit-btn" name="editeducation" formaction="editeducation" formmethod="post" value="Edit Education"/>
                                     </div>
                                     
                                     </div>
@@ -217,7 +217,7 @@
                            
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <input type="submit" class="profile-edit-btn" name="editjob" formaction="editjob" value="Edit Job History"/>
+                                        <input type="submit" class="profile-edit-btn" name="editjob" formaction="editjob" formmethod="post" value="Edit Job History"/>
                                     </div>
                                     
                                 </div>
