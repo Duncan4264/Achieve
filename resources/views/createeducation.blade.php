@@ -10,7 +10,7 @@
 @if(Session::has('users'))
 <form action = "createEducation" method="post">
 <input type="hidden" name = "_token" value = "<?php echo csrf_token()?>" />
-<h2>Edit Education</h2>
+<h2>Create Education</h2>
 @if($errors->count() != 0)
 <h1>List of Errors</h1>
 @foreach($errors->all() as $message)
