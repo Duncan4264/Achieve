@@ -20,23 +20,23 @@ use App\Services\Utility\AchieveLoggerService;
 
 class LoginController extends Controller
 {
-     // Logger variable 
-//     protected $logger;
+    // Logger variable 
+    protected $logger;
     
-//     /*
-//      * Constructor to inizalize logger variable with achieve logger service
-//      */
-//     public function __construct(AchieveLoggerService $logger)
-//     {
-//         $this->logger = $logger;
-//     }
+    /*
+     * Constructor to inizalize logger variable with achieve logger service
+     */
+    public function __construct(AchieveLoggerService $logger)
+    {
+        $this->logger = $logger;
+    }
     /*
      * Method to validate form
      */
     public function validateForm(Request $request)
     {
         // call the logger and make info we are in the validateForm
-        AchieveLogger::info("Entering LoginController.validateForm()");
+        $this->logger->info("Entering LoginController.validateForm()");
         // rules to validate form
         $rules = ['username' => 'required|string|max:255|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
             'password' => 'required', 
@@ -44,7 +44,7 @@ class LoginController extends Controller
                'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!$#%]).*$/', 
                'confirmed'];
         // call the logger and make info we are exiting validateForm
-        AchieveLogger::info("Exiting LoginController.validateForm()");
+        $this->logger->info("Exiting LoginController.validateForm()");
         // call framework validation
         $this->validate($request, $rules);
     }
@@ -56,7 +56,7 @@ class LoginController extends Controller
  {
      try {
          // call the logger and make info we are entering onLogin()
-         AchieveLogger::info("Entering LoginController.onLogin()");
+         $this->logger->info("Entering LoginController.onLogin()");
          $this->validateForm($request);
      // Call the form data
      $username = $request->input('username');
@@ -88,7 +88,7 @@ class LoginController extends Controller
          }
          
         // call the logger service to exiting the loginController
-         AchieveLogger::info("Exiting LoginController.onLogin()");
+         $this->logger->info("Exiting LoginController.onLogin()");
          // return view feed
          return view('feed');
      }

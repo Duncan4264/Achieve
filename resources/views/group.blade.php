@@ -4,9 +4,12 @@
 @section('content')
 
 @if(Session::has('users'))
-
-<table>
+@if($groups == null)
+<h1>no groups found!</h1>
+@endif
+@if($groups != null)
 @foreach ($groups as $group)
+<table>
 <tr>
 <td>
 <form action='groupAction' method="post">
@@ -27,6 +30,8 @@
 </tr>
 @endforeach
 </table>
+@endif
+
 </br>
 
 <form action='groupAction' method="get">

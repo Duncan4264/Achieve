@@ -4,17 +4,16 @@
 @section('content')
 
  @if(Session::has('admin'))
+ 
  <form action='createJobPost' method="get">
 <input type="hidden" name = "_token" value = "{{csrf_token()}}" />
 <button type="submit" name="Create" formaction="createRecruitment">Create Job Post</button>
     </form>
-@if($job == null)
-<h1>No Active Job Postings</h1>
-@endif
 @if($job != null)
 <table>
 <tr>
 <td>
+
 @foreach ($job as $jobs)
 <form action='adminAction' method="post">
 <input type="hidden" name = "_token" value = "{{csrf_token()}}" />

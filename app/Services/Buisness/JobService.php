@@ -34,8 +34,8 @@ class JobService
         if($job == null)
         {
             // create a new job placeholder
-            $job = new Job("NA", "NA", 2019, 2020, -1);
-            $service->create($job, $id);
+//             $job = new Job("NA", "NA", 2019, 2020, -1);
+//             $service->create($job, $id);
         }
         
         AchieveLogger::info("Exiting JobService.myJobs()");

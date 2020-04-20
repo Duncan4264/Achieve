@@ -301,14 +301,14 @@ class AdminController extends Controller
            AchieveLogger::info("Exiting AdminController.createJob()");
            if($job)
            {
-               return view("jobAdmin")->with([
+               return view("jobadmin")->with([
                    'job' => $jobs,
                    'role' => $role
                ]);
            }
            else
            {
-               return view("jobAdmin")->with([
+               return view("jobadmin")->with([
                    'job' => $jobs,
                    'role' => $role
                ]);
@@ -337,7 +337,7 @@ class AdminController extends Controller
            $jobs = $service->getAllJobs($id);
            // return view admin with all profiles and role passed into it
            AchieveLogger::info("Exiting AdminController.grabAllProfiles()");
-           return view("jobAdmin")->with([
+           return view("jobadmin")->with([
                'job' => $jobs,
                'role' => $role
            ]);
@@ -375,7 +375,7 @@ class AdminController extends Controller
            
            AchieveLogger::info("Exiting AdminController.deleteJob()");
            // pass it into admin
-           return view("jobAdmin")->with([
+           return view("jobadmin")->with([
                'job' => $jobs
            ]);
        }
@@ -443,7 +443,7 @@ class AdminController extends Controller
                  $jobs = $service->getAllJobs($id);
                  // return view admin with all Jobs and role passed into it
                  AchieveLogger::info("Exiting AdminController.grabAllProfiles()");
-                 return view("jobAdmin")->with([
+                 return view("jobadmin")->with([
                      'job' => $jobs,
                      'role' => $role
                  ]);

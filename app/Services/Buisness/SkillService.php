@@ -31,8 +31,8 @@ class SkillService
         if($skills == null)
         {
             // create a new skill place holder
-            $skills = new Skill("NA", -1);
-            $service->create($skills, $id);
+//             $skills = new Skill("NA", -1);
+//             $service->create($skills, $id);
         }
         
         AchieveLogger::info("Exiting SkillService.mySkills()");

@@ -57,9 +57,8 @@ class RecuitmentDAO
             // return false;
             return false;
         }
-        
-
     }
+
     /*
      * Function to find all Job Postings
      */

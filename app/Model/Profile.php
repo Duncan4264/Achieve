@@ -1,4 +1,4 @@
-<?php
+ <?php
 // Cyrus Duncan
 // CST - 256
 // This is my own work

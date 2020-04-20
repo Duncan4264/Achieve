@@ -85,12 +85,13 @@ class RegisterController extends Controller
           throw $e1;
       } catch(PDOException $e)
     {
-                // Log the pdo exception
-      AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
-        // Log the database exception
+        
+        // Log the pdo exception
+        AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+        //          // Log the database exception
         throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
-      // return false;
+        // return false;
         return false;
- }
+}
   }
 }

@@ -64,6 +64,10 @@ Route::get('/login', function () {
            Route::get('/createGroup', function() {
                return view('createGroup');
            });
+               //Routes to the feed
+               Route::get('/feed', function() {
+                   return view('feed');
+               });
            // goes to display all groups
        Route::get('/groups', "GroupController@displayGroup");
                  
@@ -78,6 +82,7 @@ Route::post('/processRegister', "RegisterController@onRegister");
 Route::post('/processLogin', "LoginController@onLogin");
 // Routes to the admin controller Confermation Method after submitting the admin request
 Route::post('/adminAction', "AdminController@onConfirm");
+
 
 // Routes to the admin controller Suspend menthod after submitting the admin request
 Route::post('/confirmSuspend', "AdminController@confirmSuspend");

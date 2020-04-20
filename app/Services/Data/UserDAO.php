@@ -35,8 +35,8 @@ class UserDAO
         $lastname = $user->getLastname();
         $email = $user->getEmail();
         $role = $user->getRole();
-         try {
-         // PDO statement to insert the user into the Users table
+//         try {
+//          // PDO statement to insert the user into the Users table
         $stmt = $this->db->prepare('INSERT 
        INTO `Users`
        (`id`, `username`, `password`, `email`, `first_name`, `last_name`, `role`)
@@ -58,16 +58,15 @@ class UserDAO
        
         }
         // catch if the statement fails and pass through a PDOException peramator
-        catch(PDOException $e)
-        {
-           // Log the pdo exception
-           AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
-          // Log the database exception
-         throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
+//         catch(PDOException $e)
+//         {
+//             // Log the pdo exception
+//             AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+// //          // Log the database exception
+//          throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
 //          // return false;
-         return false;
-       }
-    }
+//           return false;
+//         }
     /*
      * Method to find a user
      */

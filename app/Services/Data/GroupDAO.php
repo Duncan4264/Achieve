@@ -248,7 +248,7 @@ class GroupDAO
      */
     public function delete($id)
     {
-       
+        try {
             AchieveLogger::info("Entering GroupDAO.delete()");
             //Create a new query to update Group where id is equal to the profile id
             $stmt = $this->db->prepare("DELETE FROM `Groups` 
@@ -269,7 +269,16 @@ class GroupDAO
                 // else return false
                 return false;
             }
-        
+        } catch(PDOException $e)
+        {
+            
+            // Log the pdo exception
+            AchieveLogger::error("Exception: ", array("message" => $e->getMessage()));
+            //          // Log the database exception
+            throw new DatabaseException(($e->getMessage()) . "Database Exception" . $e->getMessage(), 0, $e);
+            // return false;
+            return false;
+        }
     }
     
 }
