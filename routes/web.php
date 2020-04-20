@@ -36,7 +36,7 @@ Route::get('/login', function () {
         // Goes to the form to create Job Posting
         Route::get('/createRecruitment', function()
         {
-            return view('createrecruitment');
+            return view('createRecruitment');
         });
         // Goes to the admin view
         Route::get('/admin', "AdminController@grabAllProfiles");
