@@ -300,7 +300,7 @@ class GroupController extends Controller
             // Log leaving group
             AchieveLogger::info("Exiting GroupController.displayGroup()");
             // return the group view with id and profile data
-            return view("aGroup")->with([
+            return view("agroup")->with([
                 'id' => $id,
                 'group' => $group,
                 'members' => $members
