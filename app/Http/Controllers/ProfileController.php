@@ -152,7 +152,7 @@ class ProfileController extends Controller
       
        AchieveLogger::info("Exiting profileController.displayEditUser()");
        // return the editProfile view with id and profile data
-       return view("editprofile")->with([
+       return view("editProfile")->with([
            'id' => $id,
            'profile' => $profile,
        ]);
