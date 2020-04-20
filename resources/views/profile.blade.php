@@ -52,7 +52,7 @@
                             <p>SKILLS</p>
                             @if($skills != null)
                             @foreach ($skills as $skill)
-                             <form action='skillAction' method="POST">
+                             <form action='skillAction' method="post">
                               <input type="hidden" name="id" value="{{$skill->getId()}}"/>
                               <input type="hidden" name = "_token" value = "<?php echo csrf_token()?>" />
                             <a href="">{{$skill->getSkill()}}</a><br/>
@@ -114,7 +114,7 @@
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                               @if($educations != null)
                               @foreach ($educations as $education)
-                              <form action='educationAction' method="POST">
+                              <form action='educationAction' method="post">
                               <input type="hidden" name="id" value="{{$education->getId()}}"/>
                               <input type="hidden" name = "_token" value = "<?php echo csrf_token()?>" />
                                         <div class="row">
