@@ -55,7 +55,7 @@ class EducationController extends Controller
             
             AchieveLogger::info("Exiting EducationController.displayEditEducation()");
             // return the editEducation view with id and profile data
-            return view("editEducation")->with([
+            return view("editeducation")->with([
                 'id' => $id,
                 'educate' => $education
             ]);
