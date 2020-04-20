@@ -83,7 +83,6 @@ class RegisterController extends Controller
     }
       } catch(ValidationException $e1){
           throw $e1;
-  }
       } catch(PDOException $e)
     {
                 // Log the pdo exception
