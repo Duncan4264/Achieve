@@ -1,5 +1,6 @@
- <?php
-namespace App\Model;
+namespace App\Model; 
+<?php
+
 // Cyrus Duncan
 // CST - 256
 // This is my own work
