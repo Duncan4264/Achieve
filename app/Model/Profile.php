@@ -1,8 +1,9 @@
  <?php
+namespace App\Model;
 // Cyrus Duncan
 // CST - 256
 // This is my own work
-namespace App\Model;
+
 
 class Profile implements \JsonSerializable
 {
