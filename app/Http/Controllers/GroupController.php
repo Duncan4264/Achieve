@@ -217,7 +217,7 @@ class GroupController extends Controller
             
             AchieveLogger::info("Exiting GroupController.displayEditGrup()");
             // return the editgroup view with id and profile data
-            return view("editgroup")->with([
+            return view("editGroup")->with([
                 'id' => $id,
                 'group' => $group
             ]);
@@ -300,7 +300,7 @@ class GroupController extends Controller
             // Log leaving group
             AchieveLogger::info("Exiting GroupController.displayGroup()");
             // return the group view with id and profile data
-            return view("agroup")->with([
+            return view("aGroup")->with([
                 'id' => $id,
                 'group' => $group,
                 'members' => $members
