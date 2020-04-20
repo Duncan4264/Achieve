@@ -2,11 +2,6 @@
 @section('title', 'Profile Page')
 
 @section('content')
-<?php 
-// Cyrus Duncan
-// CST - 256
-// This is my own work
-?>
 
 @if(Session::has('users'))
 <div class="container emp-profile">
