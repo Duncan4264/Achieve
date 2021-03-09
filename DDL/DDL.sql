@@ -222,7 +222,7 @@ CREATE TABLE `Users` (
 
 LOCK TABLES `Users` WRITE;
 /*!40000 ALTER TABLE `Users` DISABLE KEYS */;
-INSERT INTO `Users` VALUES (39,'cyrus4264','Duncan4264!','cyrusd4264@gmail.com','Cyrus','Duncan','admin');
+INSERT INTO `Users` VALUES (39,'Cyrus','Duncan','cyrusd4264@gmail.com','Cyrus','Duncan','admin');
 /*!40000 ALTER TABLE `Users` ENABLE KEYS */;
 UNLOCK TABLES;
 
